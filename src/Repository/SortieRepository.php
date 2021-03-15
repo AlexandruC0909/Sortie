@@ -35,7 +35,21 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getSorties()
+    {
+        $dql = <<<DQL
+SELECT s
+FROM App\Entity\Sortie s
+LEFT JOIN s.organizateur u
 
+
+
+DQL;
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery($dql);
+
+        return $query->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Sortie
     {

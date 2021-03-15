@@ -26,7 +26,7 @@ class SortieController extends AbstractController
     ): Response
     {
         $SortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $SortieRepository->findAll();
+        $sorties = $SortieRepository->getSorties();
 
         return $this->render('sortie/index.html.twig', [
 

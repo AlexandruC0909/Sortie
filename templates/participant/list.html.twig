@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    {% if (participants) %}
+        {% for participant in participants %}
+
+            <div class="card" style="">
+                <div class="card-body">
+
+                    <h5 class="card-title">{{ participant.nom }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
+                    <p class="card-text">{{ participant.email }}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

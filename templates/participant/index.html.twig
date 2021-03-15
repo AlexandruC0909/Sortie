@@ -1,0 +1,21 @@
+{% extends 'base.html.twig.' %}
+
+{% block title %}Profil Utilisateur{% endblock %}
+
+{% block body %}
+    {% if (participant) %}
+
+
+        <div class="card" style="">
+            <div class="card-body">
+                <h5 class="card-title">{{ participant.nom }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ participant.pseudo }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
+
+
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

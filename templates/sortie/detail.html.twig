@@ -14,6 +14,14 @@
 
                 </div>
             </div>
+        <div class="card" style="">
+            <div class="card-body">
+                <h5 class="card-title">liste Participants</h5>
+                {% for participant in sortie.listeParticipants %}
+                <p class="card-text">{{ participant.pseudo }}</p>
+                {% endfor %}
+            </div>
+        </div>
 
     {% endif %}
 

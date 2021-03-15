@@ -83,4 +83,24 @@ class SortieController extends AbstractController
             ]
         );
     }
+    /**
+     *
+     * @Route("/participer/{id}", name="participer",priority=1000)
+     */
+    public function participer(
+        $id,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        $user = $this->getUser();
+        $user->addInscritSortie($sortie);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('sortie_list');
+    }
 }

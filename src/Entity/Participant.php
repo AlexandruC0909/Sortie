@@ -275,20 +275,20 @@ class Participant implements UserInterface
         return $this->inscritSorties;
     }
 
-    public function addInscritSorty(Sortie $inscritSorty): self
+    public function addInscritSortie(Sortie $inscritSortie): self
     {
-        if (!$this->inscritSorties->contains($inscritSorty)) {
-            $this->inscritSorties[] = $inscritSorty;
-            $inscritSorty->addListeParticipant($this);
+        if (!$this->inscritSorties->contains($inscritSortie)) {
+            $this->inscritSorties[] = $inscritSortie;
+            $inscritSortie->addListeParticipant($this);
         }
 
         return $this;
     }
 
-    public function removeInscritSorty(Sortie $inscritSorty): self
+    public function removeInscritSortie(Sortie $inscritSortie): self
     {
-        if ($this->inscritSorties->removeElement($inscritSorty)) {
-            $inscritSorty->removeListeParticipant($this);
+        if ($this->inscritSorties->removeElement($inscritSortie)) {
+            $inscritSortie->removeListeParticipant($this);
         }
 
         return $this;

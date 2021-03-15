@@ -103,4 +103,31 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('sortie_list');
     }
+    
+    /**
+     *
+     * @Route("/delete/{id}", name="delete",priority=1000)
+     */
+    public function delete(
+        $id,
+        EntityManagerInterface $entityManager,
+
+        Request $request
+    )
+    {
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+
+
+        if (!$sortie) {
+            return $this->createNotFoundException("no participant to delete found");
+        }
+
+
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success', '$sortie deleted!.');
+        return $this->redirectToRoute('sortie_list');
+
+    }
 }

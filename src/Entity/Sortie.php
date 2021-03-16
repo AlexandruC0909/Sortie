@@ -61,7 +61,7 @@ class Sortie
     private $listeParticipants;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortie")
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortie",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $lieu;

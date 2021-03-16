@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -44,6 +47,13 @@ class SortieFormType extends AbstractType
                     'label'=>'description'
                 ]
             )
+
+            ->add('lieu', LieuType::class, [
+                'data_class' => Lieu::class,
+
+            ])
+
+
             ->add('enregistrer',SubmitType::class)
 
         ;

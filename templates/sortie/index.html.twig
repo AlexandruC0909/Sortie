@@ -17,6 +17,9 @@
                                 </a>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ sortie.infoSortie }}</h6>
                                 <p class="card-text">{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</p>
+                                <p class="card-text">Lieu : {{ sortie.lieu.nom }}</p>
+                                <p class="card-text">rue: {{ sortie.lieu.rue }}</p>
+                                <p class="card-text">longitude: {{ sortie.lieu.longitude }}</p>
                                 {% if (app.user.id == sortie.organizateur.id) %}
                                 <a href="{{ path('sortie_delete', {id: sortie.id}) }}">Suprimer Sortie<a>
                                         {% endif %}

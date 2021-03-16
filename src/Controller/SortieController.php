@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 
@@ -62,8 +63,9 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = new Sortie();
-
+        $lieu = new Lieu();
         $user = $this->getUser();
+        $lieu->addSortie($sortie);
         $user->addOrganisateurSortie($sortie);
 
         $sortieForm = $this->createForm(SortieFormType::class,$sortie);
@@ -103,7 +105,7 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('sortie_list');
     }
-    
+
     /**
      *
      * @Route("/delete/{id}", name="delete",priority=1000)

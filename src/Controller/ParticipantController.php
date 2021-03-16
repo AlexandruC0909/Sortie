@@ -52,13 +52,13 @@ class ParticipantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-        /*    $user->setPassword(
+                $participant->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $participant,
                     $form->get('plainPassword')->getData()
                 )
             );
-        */
+
 
             if (!$participant) {
                 return $this->createNotFoundException("participant incorect");

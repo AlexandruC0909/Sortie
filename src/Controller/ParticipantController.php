@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 
+use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,35 +37,39 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/update/participant/{id}", name="updateParticipant")
      */
-    public function register(
+    public function update(
         $id,
         Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new Participant();
-        $participantRepository = $entityManager->getRepository(Participant::class);
 
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participant = $participantRepository->find($id);
+
+        $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
+        /*    $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+        */
 
-            $participant = $participantRepository->updateProfil($user,$id);
             if (!$participant) {
                 return $this->createNotFoundException("participant incorect");
             }
+            $entityManager->persist($participant);
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('participant_participant');
+            return $this->redirectToRoute('participant_participant',[
+                'id' => $id,
+            ]);
         }
 
         return $this->render('participant/update.html.twig', [

@@ -3,23 +3,29 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_register') }}">Inscrire un participant</a>
-    {% if (participants) %}
-        {% for participant in participants %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('app_register') }}">Inscrire un participant</a>
+                {% if (participants) %}
+                    {% for participant in participants %}
+                        <div class="card" style="">
+                            <div class="card-body">
+                                <a href="{{ path('administrator_detail',{id:participant.id}) }}">
+                                    <h5 class="card-title">Pseudo: {{ participant.pseudo }}</h5>
+                                </a>
 
-            <div class="card" style="">
-                <div class="card-body">
-                    <a href="{{ path('administrator_detail',{id:participant.id}) }}">
-                        <h5 class="card-title">Pseudo: {{ participant.pseudo }}</h5>
-                    </a>
+                                <h5 class="card-title">{{ participant.nom }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
+                                <p class="card-text">{{ participant.email }}</p>
 
-                    <h5 class="card-title">{{ participant.nom }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
-                    <p class="card-text">{{ participant.email }}</p>
+                            </div>
+                        </div>
 
-                </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-        {% endfor %}
-    {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

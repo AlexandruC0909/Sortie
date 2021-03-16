@@ -3,26 +3,33 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-    {% if (sortie) %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% if (sortie) %}
 
 
-            <div class="card" style="">
-                <div class="card-body">
-                    <h5 class="card-title">{{ sortie.nom }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ sortie.infoSortie }}</h6>
-                    <p class="card-text">{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</p>
+                    <div class="card" style="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sortie.nom }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ sortie.infoSortie }}</h6>
+                            <p class="card-text">{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</p>
 
-                </div>
-            </div>
-        <div class="card" style="">
-            <div class="card-body">
-                <h5 class="card-title">liste Participants</h5>
-                {% for participant in sortie.listeParticipants %}
-                <p class="card-text">{{ participant.pseudo }}</p>
-                {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card" style="">
+                        <div class="card-body">
+                            <h5 class="card-title">liste Participants</h5>
+                            {% for participant in sortie.listeParticipants %}
+                                <p class="card-text">{{ participant.pseudo }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endif %}
+
             </div>
         </div>
-
-    {% endif %}
+    </div>
 
 {% endblock %}

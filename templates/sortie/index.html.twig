@@ -6,6 +6,12 @@
 <div class="container">
     <div class="row">
         <div class="col">
+
+            {{ form_start(formSearch) }}
+            {{ form_label(formSearch.nom) }}
+            {{ form_widget(formSearch.nom) }}
+            {{ form_errors(formSearch.nom)}}
+            {{ form_end(formSearch) }}
             <table class="table ">
                 <thead>
                 <tr>
@@ -16,6 +22,7 @@
                     <th scope="col">Etat</th>
                     <th scope="col">Inscrit</th>
                     <th scope="col">Organizateur</th>
+                    <th scope="col">Site</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -40,6 +47,7 @@
                         {% endfor %}
                     </td>
                     <td>{{ sortie.organizateur.nom }}</td>
+                    <td>{{ sortie.organizateur.site.nom}}</td>
                     <td>
                         {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 1) %}
                         <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier<a>

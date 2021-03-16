@@ -9,6 +9,7 @@ use App\Entity\Sortie;
 
 use App\Form\SortieFormType;
 
+use App\Form\SortieSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +25,23 @@ class SortieController extends AbstractController
      * @Route("/", name="list")
      */
     public function list(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
         $SortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $SortieRepository->findAll();
+        $formSearch = $this->createForm(SortieSearchType::class);
+        $search = $formSearch->handleRequest($request);
 
+        if ($formSearch->isSubmitted() && $formSearch->isValid()){
+            $sorties = $SortieRepository->search(
+                $search->get('nom')->getData(),
+                $search->get('site')->getData()
+            );
+        }
         return $this->render('sortie/index.html.twig', [
-
+            'formSearch' =>$formSearch->createView(),
             'sorties' => $sorties,
         ]);
     }

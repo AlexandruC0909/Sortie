@@ -55,7 +55,20 @@ DQL;
         return $query->getResult();
     }
 
+    public function search($nom, $sites){
+        $query = $this->createQueryBuilder('s');
+        $query->andWhere('s.nom LIKE :nom');
+        $query->setParameter('nom', '%'.$nom.'%');
+        if ($sites!=null){
+            $query->leftJoin('s.organizateur', 'p');
+            $query->leftJoin('p.site', 'l');
+            $query->andWhere('l.id = :id');
+            $query ->setParameter(':id',$sites);
 
+        }
+        return $query->getQuery()->getResult();
+
+    }
     /*
     public function findOneBySomeField($value): ?Sortie
     {

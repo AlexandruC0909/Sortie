@@ -35,21 +35,27 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function getSorties()
+    public function changerStatutSortie($etat,$id)
     {
         $dql = <<<DQL
-SELECT s
-FROM App\Entity\Sortie s
-LEFT JOIN s.organizateur u
-
-
+UPDATE App\Entity\Sortie s
+SET
+    s.etat =:etat
+ 
+WHERE s.id =:id
 
 DQL;
+
+
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery($dql);
+        $query ->setParameter(':etat',$etat);
+        $query ->setParameter(':id',$id);
 
         return $query->getResult();
     }
+
+
     /*
     public function findOneBySomeField($value): ?Sortie
     {

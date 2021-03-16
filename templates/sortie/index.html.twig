@@ -17,15 +17,24 @@
                                 </a>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ sortie.infoSortie }}</h6>
                                 <p class="card-text">{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</p>
+                                <p class="card-text">Site Sortie : {{ sortie.organizateur.site.nom }}</p>
                                 <p class="card-text">Lieu : {{ sortie.lieu.nom }}</p>
                                 <p class="card-text">rue: {{ sortie.lieu.rue }}</p>
                                 <p class="card-text">longitude: {{ sortie.lieu.longitude }}</p>
-                                {% if (app.user.id == sortie.organizateur.id) %}
-                                <a href="{{ path('sortie_delete', {id: sortie.id}) }}">Suprimer Sortie<a>
+                                <p class="card-text">Ville: {{ sortie.lieu.ville.nom }}</p>
+                                <p class="card-text">codpostal: {{ sortie.lieu.ville.codePostal }}</p>
+                                <p class="card-text">Etat: {{ sortie.etat.libelle }}</p>
+                                {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 1) %}
+                                <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier<a>
                                         {% endif %}
-                                        {% if (app.user.id != sortie.organizateur.id) %}
+                                        {% if (app.user.id != sortie.organizateur.id and sortie.etat.id == 2 ) %}
                                         <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer<a>
+                                                <a href="{{ path('sortie_desister', {id: sortie.id}) }}">desister<a>
                                                 {% endif %}
+                                                {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 2 ) %}
+                                                <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuler<a>
+                                                        {% endif %}
+
                             </div>
                         </div>
                     {% endfor %}

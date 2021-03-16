@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
@@ -27,7 +28,7 @@ class SortieController extends AbstractController
     ): Response
     {
         $SortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $SortieRepository->getSorties();
+        $sorties = $SortieRepository->findAll();
 
         return $this->render('sortie/index.html.twig', [
 
@@ -62,11 +63,15 @@ class SortieController extends AbstractController
         Request $request
     ): Response
     {
+        $etatRepository = $entityManager->getRepository(Etat::class);
+        $etat = $etatRepository->find(1);
         $sortie = new Sortie();
         $lieu = new Lieu();
+
         $user = $this->getUser();
         $lieu->addSortie($sortie);
         $user->addOrganisateurSortie($sortie);
+        $etat->addSortie($sortie);
 
         $sortieForm = $this->createForm(SortieFormType::class,$sortie);
         $sortieForm->handleRequest($request);
@@ -85,6 +90,27 @@ class SortieController extends AbstractController
             ]
         );
     }
+    /**
+     *
+     * @Route("/desister/{id}", name="desister",priority=1000)
+     */
+    public function desister(
+        $id,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        $user = $this->getUser();
+        $user->removeInscritSortie($sortie);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('sortie_list');
+    }
+
     /**
      *
      * @Route("/participer/{id}", name="participer",priority=1000)
@@ -108,27 +134,51 @@ class SortieController extends AbstractController
 
     /**
      *
-     * @Route("/delete/{id}", name="delete",priority=1000)
+     * @Route("/publier/{id}", name="publier",priority=1000)
      */
-    public function delete(
+    public function publier(
         $id,
         EntityManagerInterface $entityManager,
 
         Request $request
     )
     {
-        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
-
+        $etat = $entityManager->getRepository(Etat::class)->find(2);
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->changerStatutSortie($etat,$id);
 
         if (!$sortie) {
-            return $this->createNotFoundException("no participant to delete found");
+            return $this->createNotFoundException("no sortie a publie");
         }
 
-
-        $entityManager->remove($sortie);
         $entityManager->flush();
 
-        $this->addFlash('success', '$sortie deleted!.');
+        $this->addFlash('success', '$sortie publier!.');
+        return $this->redirectToRoute('sortie_list');
+
+    }
+    /**
+     *
+     * @Route("/anuler/{id}", name="anuler",priority=1000)
+     */
+    public function anuler(
+        $id,
+        EntityManagerInterface $entityManager,
+
+        Request $request
+    )
+    {
+        $etat = $entityManager->getRepository(Etat::class)->find(3);
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->changerStatutSortie($etat,$id);
+
+        if (!$sortie) {
+            return $this->createNotFoundException("no sortie a anuller");
+        }
+
+        $entityManager->flush();
+
+        $this->addFlash('success', '$sortie anuler!.');
         return $this->redirectToRoute('sortie_list');
 
     }

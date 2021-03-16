@@ -36,6 +36,37 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->flush();
     }
 
+    public function updateProfil($user,$id)
+    {
+        $dql = <<<DQL
+UPDATE App\Entity\Participant u
+SET
+    u.pseudo=:pseudo,
+    u.prenom=:prenom,
+    u.nom=:nom,
+    u.telephone=:telephone,
+    u.email=:email
+    
+ 
+WHERE u.id =:id
+
+DQL;
+
+
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery($dql);
+        $query ->setParameter(':pseudo',$user.pseudo);
+        $query ->setParameter(':prenom',$user.prenom);
+        $query ->setParameter(':nom',$user.nom);
+        $query ->setParameter(':telephone',$user.telephone);
+        $query ->setParameter(':email',$user.email);
+        $query ->setParameter(':id',$id);
+
+
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */

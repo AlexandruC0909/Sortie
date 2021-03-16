@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {% if (villes) %}
+                    {% for ville in villes %}
+                        <div class="card" style="">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title">{{ ville.nom }}</h5>
+                                <h5 class="card-title">{{ ville.codePostal }}</h5>
+                                <a href="{{ path('administrator_deleteVille',{id:ville.id}) }}">
+                                    delete
+                                </a>
+
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+                {{ form_start(formViewVille)}}
+
+                {{ form_label(formViewVille.nom) }}
+                {{ form_widget(formViewVille.nom) }}
+                {{ form_errors(formViewVille.nom) }}
+
+                {{ form_label(formViewVille.codePostal) }}
+                {{ form_widget(formViewVille.codePostal) }}
+                {{ form_errors(formViewVille.codePostal) }}
+                <button type="submit" class="btn-primary btn" >Submit</button>
+                {{ form_end(formViewVille) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

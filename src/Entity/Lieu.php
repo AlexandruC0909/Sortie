@@ -44,6 +44,12 @@ class Lieu
      */
     private $sortie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieu",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->sortie = new ArrayCollection();
@@ -128,6 +134,18 @@ class Lieu
                 $sortie->setLieu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

@@ -13,6 +13,8 @@
                             <h5 class="card-title">{{ participant.nom }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ participant.pseudo }}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ participant.site.nom }}</h6>
+                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
 
 
                         </div>

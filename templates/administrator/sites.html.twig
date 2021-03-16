@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {% if (sites) %}
+                    {% for site in sites %}
+                        <div class="card" style="">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title">{{ site.nom }}</h5>
+                                <a href="{{ path('administrator_deleteSite',{id:site.id}) }}">
+                                    delete
+                                </a>
+
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+                {{ form_start(formViewSite) }}
+                {{ form_label(formViewSite.nom) }}
+                {{ form_widget(formViewSite.nom) }}
+                {{ form_errors(formViewSite.nom) }}
+                {{ form_end(formViewSite) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

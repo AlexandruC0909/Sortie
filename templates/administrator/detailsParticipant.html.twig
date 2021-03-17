@@ -16,7 +16,14 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
                             <a href="{{ path('administrator_personne',{id:participant.id}) }}">
                                 delete
-                            </a>
+
+
+                                {{ form_start(updateSortieForm) }}
+                                {{ form_label(updateSortieForm.actif) }}
+                                {{ form_widget(updateSortieForm.actif) }}
+                                {{ form_errors(updateSortieForm.actif) }}
+                                {{ form_end(updateSortieForm) }}
+
 
                         </div>
                     </div>

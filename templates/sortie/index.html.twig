@@ -8,9 +8,15 @@
         <div class="col">
 
             {{ form_start(formSearch) }}
+
             {{ form_label(formSearch.nom) }}
             {{ form_widget(formSearch.nom) }}
             {{ form_errors(formSearch.nom)}}
+
+            {{ form_label(formSearch.site) }}
+            {{ form_widget(formSearch.site) }}
+            {{ form_errors(formSearch.site)}}
+
             {{ form_end(formSearch) }}
             <table class="table ">
                 <thead>
@@ -51,6 +57,9 @@
                     <td>
                         {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 1) %}
                         <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier<a>
+                                <a href="{{ path('sortie_updateSortie', {id: sortie.id}) }}">Modifier<a>
+                                        <a href="{{ path('sortie_deleteSortie', {id: sortie.id}) }}">Supprimer<a>
+
                         {% endif %}
 
                         {% if (app.user.id != sortie.organizateur.id and sortie.etat.id == 2 ) %}
@@ -67,6 +76,11 @@
                         {% if (sortie.etat.id != 1 ) %}
                            <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Aficher<a>
                         {% endif %}
+                                   {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 2 ) %}
+                                   <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuller<a>
+                                           {% endif %}
+
+
                     </td>
 
                 </tr>

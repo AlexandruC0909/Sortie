@@ -18,17 +18,13 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('email')
-         //   ->add('roles')
-         //   ->add('password')
+
             ->add('nom')
             ->add('prenom')
             ->add('telephone')
-        //    ->add('administrator')
-        //    ->add('actif')
+
             ->add('pseudo')
-         //   ->add('inscritSorties')
-          //  ->add('site')
-             ->add('site', EntityType::class, [
+            ->add('site', EntityType::class, [
              'class' => Site::class,
              'choice_label' => 'nom',
          ])

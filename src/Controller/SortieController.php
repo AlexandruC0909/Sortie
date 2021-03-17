@@ -7,6 +7,8 @@ use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 
+use App\Entity\Tweet;
+use App\Form\ParticipantType;
 use App\Form\SortieFormType;
 
 use App\Form\SortieSearchType;
@@ -15,6 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 /**
  * @Route("/sortie", name="sortie_")
  */
@@ -189,7 +193,70 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success', '$sortie anuler!.');
+
         return $this->redirectToRoute('sortie_list');
 
     }
+    /**
+     * @Route("/update/sortie/{id}", name="updateSortie")
+     */
+    public function update(
+        $id,
+        Request $request,
+        EntityManagerInterface $entityManager
+    )
+
+    {
+
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        $form = $this->createForm(SortieFormType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+            if (!$sortie) {
+                return $this->createNotFoundException("participant incorect");
+            }
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('sortie_list',[
+                'id' => $id,
+            ]);
+        }
+
+        return $this->render('sortie/update.html.twig', [
+            'updateSortieForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/delete/sortie/{id}", name="deleteSortie")
+     */
+    public function delete(
+        $id,
+        EntityManagerInterface $entityManager
+
+    )
+    {
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        if (!$sortie) {
+            return $this->createNotFoundException("no sortie to delete found");
+        }
+
+
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'sortie deleted!.');
+        return $this->redirectToRoute('sortie_list');
+
+    }
+
+
 }

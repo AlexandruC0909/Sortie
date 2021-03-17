@@ -9,25 +9,9 @@
                 <a href="{{ path('app_register') }}">Inscrire un participant</a>
                 <a href="{{ path('administrator_sites') }}">Liste Sites</a>
                 <a href="{{ path('administrator_villes') }}">Liste Villes</a>
-                {% if (participants) %}
-                    {% for participant in participants %}
-                        <div class="card" style="">
-                            <div class="card-body">
-                                <a href="{{ path('administrator_detail',{id:participant.id}) }}">
-                                    <h5 class="card-title">Pseudo: {{ participant.pseudo }}</h5>
-                                </a>
+                <a href="{{ path('administrator_listSortie') }}">Liste Sorties</a>
+                <a href="{{ path('administrator_listParticipants') }}">Liste Participants</a>
 
-                                <h5 class="card-title">{{ participant.nom }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
-                                <p class="card-text">{{ participant.email }}</p>
-                                <a href="{{ path('administrator_personne',{id:participant.id}) }}">
-                                    delete
-                                </a>
-                            </div>
-                        </div>
-
-                    {% endfor %}
-                {% endif %}
             </div>
         </div>
     </div>

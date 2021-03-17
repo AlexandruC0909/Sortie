@@ -6,10 +6,12 @@ use App\Entity\Lieu;
 use App\Entity\Participant;
 
 use App\Entity\Site;
+use App\Entity\Sortie;
 use App\Entity\Tweet;
 use App\Entity\Ville;
 use App\Form\SiteType;
 use App\Form\SortieFormType;
+use App\Form\UpdateStatutParticipantType;
 use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,19 +29,54 @@ class AdministratorController extends AbstractController
     /**
      * @Route("/", name="administrator")
      */
-
     public function list(
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+
+
+        return $this->render('administrator/index.html.twig', [
+
+
+        ]);
+    }
+
+    /**
+     * @Route("/list/participants", name="listParticipants")
+     */
+    public function listParticipants(
         EntityManagerInterface $entityManager
     ): Response
     {
         $ParticipantRepository = $entityManager->getRepository(Participant::class);
         $participants = $ParticipantRepository->findAll();
 
-        return $this->render('administrator/index.html.twig', [
+
+
+        return $this->render('administrator/participants.html.twig', [
 
             'participants' => $participants,
         ]);
     }
+
+
+
+    /**
+     * @Route("/list/sorties", name="listSortie")
+     */
+    public function listSorties(
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sorties = $sortieRepository->findAll();
+
+        return $this->render('administrator/sorties.html.twig', [
+
+            'sorties' => $sorties,
+        ]);
+    }
+
     /**
      * @Route("/list/sites", name="sites")
      */
@@ -157,13 +194,30 @@ class AdministratorController extends AbstractController
      */
     public function detail(
         $id,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
+        $formUpdateParticipant = $this->createForm(UpdateStatutParticipantType::class,$participant);
+        $formUpdateParticipant ->handleRequest($request);
+        if($formUpdateParticipant->isSubmitted() && $formUpdateParticipant->isValid()){
+            if (!$participant){
+                return $this->createNotFoundException("participant incorect");
+            }
+            $entityManager->persist($participant);
+            $entityManager->flush();
+            return $this->redirectToRoute('administrator_detail',
+                [
+                    'id' => $id,
+                    'participant' => $participant,
+                    'updateSortieForm' => $formUpdateParticipant->createView()
+                ]);
+        }
         return $this->render('administrator/detailsParticipant.html.twig', [
             'participant' => $participant,
+            'updateSortieForm' => $formUpdateParticipant->createView()
         ]);
     }
 
@@ -196,3 +250,7 @@ class AdministratorController extends AbstractController
 
     }
 }
+
+
+
+

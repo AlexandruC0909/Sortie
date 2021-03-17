@@ -1,0 +1,64 @@
+{% extends 'base.html.twig.' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom de la Sortie</th>
+                        <th scope="col">Date de la sortie</th>
+                        <th scope="col">Cloture</th>
+                        <th scope="col">inscrits/places</th>
+                        <th scope="col">Etat</th>
+                        <th scope="col">Inscrit</th>
+                        <th scope="col">Organizateur</th>
+                        <th scope="col">Site</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if (sorties) %}
+                        {% for sortie in sorties %}
+                            <tr>
+                                <td>{{ sortie.nom }}</td>
+                                <td>{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</td>
+                                <td>{{ sortie.dateLimiteInscription|date('d/m/Y h:i') }}</td>
+                                <td>{{ sortie.listeParticipants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                                <td>{{ sortie.etat.libelle }}</td>
+                                <td>
+                                    {% for participant in sortie.listeParticipants %}
+                                        {% if(app.user.id == participant.id) %}
+                                            x
+
+                                        {% else %}
+                                            o
+
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ sortie.organizateur.nom }}</td>
+                                <td>{{ sortie.organizateur.site.nom}}</td>
+                                <td>
+                               {% if (sortie.etat.id == 2 ) %}
+                                <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuller<a>
+                             {% endif %}
+
+
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

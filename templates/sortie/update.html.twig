@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une sortie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Que voulez-vous faire ?</h1>
+                {{ form_start(updateSortieForm) }}
+                {{ form_errors(updateSortieForm) }}
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                {{ form_label(updateSortieForm.nom) }}
+                {{ form_widget(updateSortieForm.nom) }}
+                {{ form_errors(updateSortieForm.nom) }}
+
+                {{ form_label(updateSortieForm.dateHeureDebut) }}
+                {{ form_widget(updateSortieForm.dateHeureDebut) }}
+                {{ form_errors(updateSortieForm.dateHeureDebut) }}
+
+                {{ form_label(updateSortieForm.duree) }}
+                {{ form_widget(updateSortieForm.duree) }}
+                {{ form_errors(updateSortieForm.duree) }}
+
+                {{ form_label(updateSortieForm.dateLimiteInscription) }}
+                {{ form_widget(updateSortieForm.dateLimiteInscription) }}
+                {{ form_errors(updateSortieForm.dateLimiteInscription) }}
+
+                {{ form_label(updateSortieForm.nbInscriptionsMax) }}
+                {{ form_widget(updateSortieForm.nbInscriptionsMax) }}
+                {{ form_errors(updateSortieForm.nbInscriptionsMax) }}
+
+                {{ form_label(updateSortieForm.infoSortie) }}
+                {{ form_widget(updateSortieForm.infoSortie) }}
+                {{ form_errors(updateSortieForm.infoSortie) }}
+
+                {{ form_label(updateSortieForm.lieu) }}
+                {{ form_widget(updateSortieForm.lieu) }}
+                {{ form_errors(updateSortieForm.lieu) }}
+
+                {{ form_end(updateSortieForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

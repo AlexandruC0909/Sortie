@@ -11,7 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Adresse email déjà utilisée")
+ * @UniqueEntity(fields={"pseudo"}, message="Pseudo déjà utilisé")
  */
 class Participant implements UserInterface
 {
@@ -64,7 +65,7 @@ class Participant implements UserInterface
     private $actif = 1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $pseudo;
 

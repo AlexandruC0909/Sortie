@@ -24,10 +24,13 @@
                            required autofocus>
                     <label for="inputPassword">Password</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
-
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                    <label for="remember_me">Se souvenir de moi</label>
                     <input type="hidden" name="_csrf_token"
                            value="{{ csrf_token('authenticate') }}"
                     >
+
+
 
                     {#
                     Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.

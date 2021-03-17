@@ -1,28 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" id="inscription">
         <div class="row">
             <div class="col">
                 {% for flashError in app.flashes('verify_email_error') %}
                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                 {% endfor %}
 
-                <h1>Register</h1>
+                <h1>Création de compte</h1>
 
                 {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
+
                 {{ form_row(registrationForm.pseudo) }}
+                {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.nom) }}
                 {{ form_row(registrationForm.prenom) }}
+                {{ form_row(registrationForm.telephone) }}
+
                 {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
+                    label: 'Mot de passe (6 caractères minimum)'
                 }) }}
+                {{ form_row(registrationForm.site) }}
+                {{ form_row(registrationForm.administrator) }}
                 {{ form_row(registrationForm.agreeTerms) }}
 
-                <button type="submit" class="btn">Register</button>
+                <div class="d-grid gap-2 d-md-block">
+                    <button type="submit" class="btn btn-primary">Créer le compte</button>
+                    <button type="button" class="btn btn-primary">
+                        <a id="btn1" href="{{ path('administrator_administrator') }}">Retour Accueil ADMIN</a>
+                    </button>
+                </div>
+
                 {{ form_end(registrationForm) }}
 
             </div>

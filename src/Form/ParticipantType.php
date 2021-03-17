@@ -20,13 +20,10 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('email')
-
             ->add('nom')
             ->add('prenom')
             ->add('telephone')
-
             ->add('pseudo')
-
              ->add('password', RepeatedType::class, [
                  'type' => PasswordType::class,
                  'invalid_message' => 'Les mots de passe doivent correspondre',
@@ -37,7 +34,7 @@ class ParticipantType extends AbstractType
                  'required' => false
 
              ])
-            ->add('update',SubmitType::class)
+            ->add('Enregistrer',SubmitType::class)
         ;
     }
 

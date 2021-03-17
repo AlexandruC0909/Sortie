@@ -3,50 +3,49 @@
 {% block title %}Ajout d'une sortie{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col">
-                <h1>Que voulez-vous faire ?</h1>
+            <div class="col-md-4 offset-md-4">
+                <h3 class="text-center">
+                    Creer une sortie
+                </h3>
                 {{ form_start(sortieFormView) }}
                 {{ form_errors(sortieFormView) }}
-<div class="row">
-    <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_label(sortieFormView.nom) }}
+                        {{ form_widget(sortieFormView.nom) }}
+                        {{ form_errors(sortieFormView.nom) }}
 
-    </div>
-    <div class="col-md-6">
+                        {{ form_label(sortieFormView.dateHeureDebut) }}
+                        {{ form_widget(sortieFormView.dateHeureDebut) }}
+                        {{ form_errors(sortieFormView.dateHeureDebut) }}
 
-    </div>
-</div>
-                {{ form_label(sortieFormView.nom) }}
-                {{ form_widget(sortieFormView.nom) }}
-                {{ form_errors(sortieFormView.nom) }}
+                        {{ form_label(sortieFormView.dateLimiteInscription) }}
+                        {{ form_widget(sortieFormView.dateLimiteInscription) }}
+                        {{ form_errors(sortieFormView.dateLimiteInscription) }}
 
-                {{ form_label(sortieFormView.dateHeureDebut) }}
-                {{ form_widget(sortieFormView.dateHeureDebut) }}
-                {{ form_errors(sortieFormView.dateHeureDebut) }}
+                        {{ form_label(sortieFormView.nbInscriptionsMax) }}
+                        {{ form_widget(sortieFormView.nbInscriptionsMax) }}
+                        {{ form_errors(sortieFormView.nbInscriptionsMax) }}
 
-                {{ form_label(sortieFormView.duree) }}
-                {{ form_widget(sortieFormView.duree) }}
-                {{ form_errors(sortieFormView.duree) }}
+                        {{ form_label(sortieFormView.duree) }}
+                        {{ form_widget(sortieFormView.duree) }}
+                        {{ form_errors(sortieFormView.duree) }}
 
-                {{ form_label(sortieFormView.dateLimiteInscription) }}
-                {{ form_widget(sortieFormView.dateLimiteInscription) }}
-                {{ form_errors(sortieFormView.dateLimiteInscription) }}
-
-                {{ form_label(sortieFormView.nbInscriptionsMax) }}
-                {{ form_widget(sortieFormView.nbInscriptionsMax) }}
-                {{ form_errors(sortieFormView.nbInscriptionsMax) }}
-
-                {{ form_label(sortieFormView.infoSortie) }}
-                {{ form_widget(sortieFormView.infoSortie) }}
-                {{ form_errors(sortieFormView.infoSortie) }}
-
-                {{ form_label(sortieFormView.lieu) }}
-                {{ form_widget(sortieFormView.lieu) }}
-                {{ form_errors(sortieFormView.lieu) }}
-
+                        {{ form_label(sortieFormView.infoSortie) }}
+                        {{ form_widget(sortieFormView.infoSortie) }}
+                        {{ form_errors(sortieFormView.infoSortie) }}
+                    </div>
+                    <div class="col-md-6 ">
+                        {{ form_label(sortieFormView.lieu) }}
+                        {{ form_widget(sortieFormView.lieu) }}
+                        {{ form_errors(sortieFormView.lieu) }}
+                    </div>
+                </div>
                 {{ form_end(sortieFormView) }}
             </div>
         </div>
     </div>
+
 {% endblock %}

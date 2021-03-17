@@ -45,10 +45,6 @@
                         {% for participant in sortie.listeParticipants %}
                             {% if(app.user.id == participant.id) %}
                                 x
-
-                            {% else %}
-                                o
-
                             {% endif %}
                         {% endfor %}
                     </td>

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Participant;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -36,7 +37,21 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->flush();
     }
 
+    public function findByUsernameOrEmail(string $id): ?Participant
+    {
+        $entityManager = $this->getEntityManager();
+        $dql = <<<DQL
+SELECT p
+FROM App\Entity\Participant p
+WHERE(p.pseudo = :id OR p.email = :id)
+DQL;
+        $results = $entityManager->createQuery($dql)
+            ->setParameter(':id', $id)
+            ->setMaxResults(1)
+            ->getResult();
 
+        return array_pop($results);
+    }
 
     // /**
     //  * @return Participant[] Returns an array of Participant objects

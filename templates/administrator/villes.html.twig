@@ -6,25 +6,34 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                {{ form_start(formSearchVille) }}
+                {{ form_errors(formSearchVille) }}
 
-                {% if (villes) %}
+                {{ form_label(formSearchVille.nom) }}
+                {{ form_widget(formSearchVille.nom) }}
+                {{ form_errors(formSearchVille.nom) }}
+
+                {{ form_end(formSearchVille) }}
+                {% if (villes ) %}
                     {% for ville in villes %}
-                        <div class="card" style="">
-                            <div class="card-body">
+                        {% if villesSearch %}
+                            <div class="card" style="">
+                                <div class="card-body">
 
 
-                                <h5 class="card-title">{{ ville.nom }}</h5>
-                                <h5 class="card-title">{{ ville.codePostal }}</h5>
-                                <a href="{{ path('administrator_deleteVille',{id:ville.id}) }}">
-                                    delete
-                                </a>
+                                    <h5 class="card-title">{{ ville.nom }}</h5>
+                                    <h5 class="card-title">{{ ville.codePostal }}</h5>
+                                    <a href="{{ path('administrator_deleteVille',{id:ville.id}) }}">
+                                        delete
+                                    </a>
 
+                                </div>
                             </div>
-                        </div>
 
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
-                {{ form_start(formViewVille)}}
+                {{ form_start(formViewVille) }}
 
                 {{ form_label(formViewVille.nom) }}
                 {{ form_widget(formViewVille.nom) }}
@@ -33,7 +42,7 @@
                 {{ form_label(formViewVille.codePostal) }}
                 {{ form_widget(formViewVille.codePostal) }}
                 {{ form_errors(formViewVille.codePostal) }}
-                <button type="submit" class="btn-primary btn" >Submit</button>
+                <button type="submit" class="btn-primary btn">Submit</button>
                 {{ form_end(formViewVille) }}
             </div>
         </div>

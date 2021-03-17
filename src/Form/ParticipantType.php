@@ -7,6 +7,8 @@ use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -24,26 +26,18 @@ class ParticipantType extends AbstractType
             ->add('telephone')
 
             ->add('pseudo')
-            ->add('site', EntityType::class, [
-             'class' => Site::class,
-             'choice_label' => 'nom',
-         ])
-             ->add('plainPassword', PasswordType::class, [
-             // instead of being set onto the object directly,
-             // this is read and encoded in the controller
 
-             'mapped' => false,
-             'constraints' => [
+             ->add('password', RepeatedType::class, [
+                 'type' => PasswordType::class,
+                 'invalid_message' => 'Les mots de passe doivent correspondre',
+                 'options' => ['attr' => ['class' => 'password-field']],
+                 'first_options'  => ['label' => 'nouveau mot de passe'],
+                 'second_options' => ['label' => 'confirmer'],
+                 'mapped' =>false,
+                 'required' => false
 
-                 new Length([
-                     'min' => 4,
-                     'minMessage' => 'Your password should be at least {{ limit }} characters',
-                     // max length allowed by Symfony for security reasons
-                     'max' => 4096,
-                 ]),
-             ],
-                 'required'=> false
-         ])
+             ])
+            ->add('update',SubmitType::class)
         ;
     }
 

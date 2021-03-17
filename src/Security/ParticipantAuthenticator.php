@@ -71,7 +71,7 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email ou pseudo errone');
+            throw new CustomUserMessageAuthenticationException('Email ou pseudo erroné');
         }
 
         return $user;

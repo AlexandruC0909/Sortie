@@ -9,8 +9,11 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Tweet;
 use App\Entity\Ville;
+use App\Form\SearchParticipantType;
+use App\Form\SearchVilleType;
 use App\Form\SiteType;
 use App\Form\SortieFormType;
+use App\Form\SortieSearchType;
 use App\Form\UpdateStatutParticipantType;
 use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,20 +48,28 @@ class AdministratorController extends AbstractController
      * @Route("/list/participants", name="listParticipants")
      */
     public function listParticipants(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
-        $ParticipantRepository = $entityManager->getRepository(Participant::class);
-        $participants = $ParticipantRepository->findAll();
+
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participants = $participantRepository->findAll();
+
+        $searchFormParticipant = $this->createForm(SearchParticipantType::class);
+        $search = $searchFormParticipant->handleRequest($request);
+
+        if ($searchFormParticipant->isSubmitted() && $searchFormParticipant->isValid()){
+            $participants = $participantRepository->searchParticipant($searchFormParticipant->get('pseudo')->getData());
+        }
 
 
 
         return $this->render('administrator/participants.html.twig', [
-
+            'searchFormParticipant' => $searchFormParticipant->createView(),
             'participants' => $participants,
         ]);
     }
-
 
 
     /**
@@ -90,7 +101,7 @@ class AdministratorController extends AbstractController
 
         $site = new Site();
 
-        $siteForm = $this->createForm(SiteType::class,$site);
+        $siteForm = $this->createForm(SiteType::class, $site);
         $siteForm->handleRequest($request);
 
 
@@ -102,24 +113,29 @@ class AdministratorController extends AbstractController
             return $this->redirectToRoute('administrator_sites');
         }
         return $this->render('administrator/sites.html.twig', [
-            'formViewSite'=>$siteForm->createView(),
+            'formViewSite' => $siteForm->createView(),
             'sites' => $sites,
         ]);
     }
+
     /**
      * @Route("/list/villes", name="villes")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
      */
     public function listVille(
         EntityManagerInterface $entityManager,
         Request $request
     ): Response
     {
+        /*-------------------  Affichage villes  -------------------------------*/
         $villesRepository = $entityManager->getRepository(Ville::class);
         $villes = $villesRepository->findAll();
-
+        /*----------------------- Creation ville  ------------------------------*/
         $ville = new Ville();
 
-        $villeForm = $this->createForm(VilleType::class,$ville);
+        $villeForm = $this->createForm(VilleType::class, $ville);
         $villeForm->handleRequest($request);
 
 
@@ -130,8 +146,21 @@ class AdministratorController extends AbstractController
 
             return $this->redirectToRoute('administrator_villes');
         }
+        /*-------------------------  Recherche ville  ----------------------*/
+        $VilleRepository = $entityManager->getRepository(Ville::class);
+        $villeSearch = $VilleRepository->findAll();
+        $formSearch = $this->createForm(SearchVilleType::class);
+        $search = $formSearch->handleRequest($request);
+
+        if ($formSearch->isSubmitted() && $formSearch->isValid()){
+            $villeSearch = $VilleRepository->searchVille(
+                $search->get('nom')->getData()
+            );
+        }
         return $this->render('administrator/villes.html.twig', [
-            'formViewVille'=>$villeForm->createView(),
+            'formSearchVille' => $formSearch->createView(),
+            'villesSearch' => $villeSearch,
+            'formViewVille' => $villeForm->createView(),
             'villes' => $villes,
         ]);
     }
@@ -200,10 +229,10 @@ class AdministratorController extends AbstractController
     {
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
-        $formUpdateParticipant = $this->createForm(UpdateStatutParticipantType::class,$participant);
-        $formUpdateParticipant ->handleRequest($request);
-        if($formUpdateParticipant->isSubmitted() && $formUpdateParticipant->isValid()){
-            if (!$participant){
+        $formUpdateParticipant = $this->createForm(UpdateStatutParticipantType::class, $participant);
+        $formUpdateParticipant->handleRequest($request);
+        if ($formUpdateParticipant->isSubmitted() && $formUpdateParticipant->isValid()) {
+            if (!$participant) {
                 return $this->createNotFoundException("participant incorect");
             }
             $entityManager->persist($participant);

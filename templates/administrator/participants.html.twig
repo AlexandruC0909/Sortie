@@ -1,25 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List{% endblock %}
+{% block title %}Liste des participants{% endblock %}
+
 {% block body %}
-{% if (participants) %}
-    {% for participant in participants %}
-        <div class="card" style="">
-            <div class="card-body">
-                <a href="{{ path('administrator_detail',{id:participant.id}) }}">
-                    <h5 class="card-title">Pseudo: {{ participant.pseudo }}</h5>
-                </a>
+    <div class="container" id="listeParticipants">
+        <div class="row">
+            <div class="col">
 
-                <h5 class="card-title">{{ participant.nom }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
-                <p class="card-text">{{ participant.email }}</p>
-                <a href="{{ path('administrator_personne',{id:participant.id}) }}">
-                    delete
-                </a>
+                {{ form_start(searchFormParticipant) }}
 
+                {{ form_label(searchFormParticipant.pseudo) }}
+                {{ form_widget(searchFormParticipant.pseudo) }}
+                {{ form_errors(searchFormParticipant.pseudo) }}
+
+                {{ form_end(searchFormParticipant) }}
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pseudo utilisateur</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Adresse email</th>
+                        <th scope="col">Telephone</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if (participants) %}
+                        {% for participant in participants %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('administrator_detail', {id: participant.id}) }}">{{ participant.pseudo }}</a>
+                                </td>
+                                <td>{{ participant.nom }}</td>
+                                <td>{{ participant.prenom }}</td>
+                                <td>{{ participant.email }}</td>
+                                <td>{{ participant.telephone }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
         </div>
-
-    {% endfor %}
-{% endif %}
+    </div>
 {% endblock %}

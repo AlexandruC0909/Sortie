@@ -9,6 +9,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Tweet;
 use App\Entity\Ville;
+use App\Form\SearchParticipantType;
 use App\Form\SiteType;
 use App\Form\SortieFormType;
 use App\Form\UpdateStatutParticipantType;
@@ -45,16 +46,25 @@ class AdministratorController extends AbstractController
      * @Route("/list/participants", name="listParticipants")
      */
     public function listParticipants(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
-        $ParticipantRepository = $entityManager->getRepository(Participant::class);
-        $participants = $ParticipantRepository->findAll();
+
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participants = $participantRepository->findAll();
+
+        $searchFormParticipant = $this->createForm(SearchParticipantType::class);
+        $search = $searchFormParticipant->handleRequest($request);
+
+        if ($searchFormParticipant->isSubmitted() && $searchFormParticipant->isValid()){
+            $participants = $participantRepository->searchParticipant($searchFormParticipant->get('pseudo')->getData());
+        }
 
 
 
         return $this->render('administrator/participants.html.twig', [
-
+            'searchFormParticipant' => $searchFormParticipant->createView(),
             'participants' => $participants,
         ]);
     }

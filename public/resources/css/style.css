@@ -35,6 +35,15 @@ h1 {
     text-decoration: none;
     color: white;
 }
+#listeParticipants
+{
+    padding: 50px;
+    flex: 1;
+    background-color: #999999;
+    color: black;
+    border: 0.1em solid;
+    box-shadow: 6px 6px 6px black;
+}
 /*****************************************************************************
 **************                    footer                             *********
 *****************************************************************************/

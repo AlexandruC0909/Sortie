@@ -53,6 +53,18 @@ DQL;
         return array_pop($results);
     }
 
+    public function searchParticipant($pseudo)
+    {
+        $query = $this->createQueryBuilder('p');
+        $query->andWhere('p.pseudo LIKE :pseudo');
+        $query->setParameter('pseudo', '%'.$pseudo.'%');
+
+        return $query->getQuery()->getResult();
+        }
+
+
+
+
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */

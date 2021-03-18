@@ -10,6 +10,7 @@ use App\Entity\Sortie;
 use App\Entity\Tweet;
 use App\Entity\Ville;
 use App\Form\SearchParticipantType;
+use App\Form\SearchSiteType;
 use App\Form\SearchVilleType;
 use App\Form\SiteType;
 use App\Form\SortieFormType;
@@ -90,14 +91,17 @@ class AdministratorController extends AbstractController
 
     /**
      * @Route("/list/sites", name="sites")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
      */
     public function listSite(
         EntityManagerInterface $entityManager,
         Request $request
     ): Response
     {
-        $siteRepository = $entityManager->getRepository(Site::class);
-        $sites = $siteRepository->findAll();
+/*        $siteRepository = $entityManager->getRepository(Site::class);
+        $sites = $siteRepository->findAll();*/
 
         $site = new Site();
 
@@ -112,8 +116,21 @@ class AdministratorController extends AbstractController
 
             return $this->redirectToRoute('administrator_sites');
         }
+            /*-------------------------  Recherche site  ----------------------*/
+            $siteSearchRepository = $entityManager->getRepository(Site::class);
+            $sites = $siteSearchRepository->findAll();
+            $formSearchSite = $this->createForm(SearchSiteType::class);
+            $search = $formSearchSite->handleRequest($request);
+
+            if ($formSearchSite->isSubmitted() && $formSearchSite->isValid()){
+                $sites = $siteSearchRepository->searchSite($search->get('nom')->getData()
+                );
+            }
+
+
         return $this->render('administrator/sites.html.twig', [
             'formViewSite' => $siteForm->createView(),
+            'formSearchSite' => $formSearchSite->createView(),
             'sites' => $sites,
         ]);
     }
@@ -130,8 +147,8 @@ class AdministratorController extends AbstractController
     ): Response
     {
         /*-------------------  Affichage villes  -------------------------------*/
-        $villesRepository = $entityManager->getRepository(Ville::class);
-        $villes = $villesRepository->findAll();
+        /*      $villesRepository = $entityManager->getRepository(Ville::class);
+              $villes = $villesRepository->findAll();*/
         /*----------------------- Creation ville  ------------------------------*/
         $ville = new Ville();
 

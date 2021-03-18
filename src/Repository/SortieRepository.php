@@ -55,15 +55,46 @@ DQL;
         return $query->getResult();
     }
 
-    public function search($nom, $sites){
+    public function search($nom, $sites,$organisateurId,$idParticipant,$notParticipantId,$dateInf,$dateSup){
         $query = $this->createQueryBuilder('s');
-        $query->andWhere('s.nom LIKE :nom');
-        $query->setParameter('nom', '%'.$nom.'%');
+        $query->leftJoin('s.organizateur', 'p');
+        $query->leftJoin('p.site', 'l');
+        $query->leftJoin('s.listeParticipants', 'q');
+
+        if ($nom!=null){
+            $query->andWhere('s.nom LIKE :nom');
+            $query->setParameter('nom', '%'.$nom.'%');
+        }
         if ($sites!=null){
-            $query->leftJoin('s.organizateur', 'p');
-            $query->leftJoin('p.site', 'l');
-            $query->andWhere('l.id = :id');
-            $query ->setParameter(':id',$sites);
+            $query->andWhere('l.id = :idSite');
+            $query ->setParameter(':idSite',$sites);
+
+        }
+        if ($organisateurId!=null){
+            $query->andWhere('p.id = :idOrganisateur');
+            $query ->setParameter(':idOrganisateur',$organisateurId);
+
+        }
+        if ($idParticipant!=null){
+
+            $query->andWhere('q.id = :idParticipant');
+            $query ->setParameter(':idParticipant',$idParticipant);
+
+        }
+        if ($notParticipantId!=null){
+
+            $query->andWhere('q.id <> :idNotParticipant');
+            $query ->setParameter(':idNotParticipant',$notParticipantId);
+
+        }
+        if ($dateInf!=null){
+            $query->andWhere('s.dateHeureDebut > :dateInf');
+            $query ->setParameter(':dateInf',$dateInf);
+
+        }
+        if ($dateSup!=null){
+            $query->andWhere('s.dateHeureDebut < :dateSup');
+            $query ->setParameter(':dateSup',$dateSup);
 
         }
         return $query->getQuery()->getResult();

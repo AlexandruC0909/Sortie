@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +33,34 @@ class SortieSearchType extends AbstractType
                 'required' => false
 
             ]
+            )
+            ->add('organisateur', CheckboxType::class, [
+                'label'    => 'Sorties dont je suis l\'organizateur/trice',
+                'required' => false,
+            ])
+            ->add('participant', CheckboxType::class, [
+                'label'    => 'Sorties auxquelles je suis inscrit/e',
+                'required' => false,
+            ])
+            ->add('notParticipant', CheckboxType::class, [
+                'label'    => 'Sorties auxquelles je ne suis pas inscrit/e',
+                'required' => false,
+            ])
+            ->add('dateInf',DateType::class,
+                [
+                    'label'=>'dateInferiore',
+                    'attr' => ['class' => 'dateFormulaire'],
+                    'widget' => 'single_text',
+                    'required' => false,
+                ]
+            )
+            ->add('dateSup',DateType::class,
+                [
+                    'label'=>'dateSuperiore',
+                    'attr' => ['class' => 'dateFormulaire'],
+                    'widget' => 'single_text',
+                    'required' => false,
+                ]
             )
             ->add('Rechercher',SubmitType::class)
         ;

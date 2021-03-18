@@ -39,9 +39,29 @@ class SortieController extends AbstractController
         $search = $formSearch->handleRequest($request);
 
         if ($formSearch->isSubmitted() && $formSearch->isValid()){
+            if($search->get('organisateur')->getData()){
+                $organisateurId = $this->getUser();
+            }else{
+                $organisateurId = null;
+            }
+            if($search->get('participant')->getData()){
+                $participantId = $this->getUser();
+            }else{
+                $participantId = null;
+            }
+            if($search->get('notParticipant')->getData()){
+                $notParticipantId = $this->getUser();
+            }else{
+                $notParticipantId = null;
+            }
             $sorties = $SortieRepository->search(
                 $search->get('nom')->getData(),
-                $search->get('site')->getData()
+                $search->get('site')->getData(),
+                $organisateurId,
+                $participantId,
+                $notParticipantId,
+                $search->get('dateInf')->getData(),
+                $search->get('dateSup')->getData()
             );
         }
         return $this->render('sortie/index.html.twig', [

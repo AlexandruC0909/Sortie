@@ -4,26 +4,33 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col">
-                {% if (participant) %}
-                    <div class="card" style="">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ participant.nom }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ participant.pseudo }}</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ participant.prenom }}</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ participant.site.nom }}</h6>
-                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
-
-
-                        </div>
+            <div class="col-md-4 offset-md-4">
+                <h3 class="text-center">
+                    {{ participant.pseudo }}
+                </h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <p>Nom:</p>
+                        <p>Prenom:</p>
+                        <p>Nr Tel:</p>
+                        <p>Email:</p>
+                        <p>Site:</p>
+                        <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
                     </div>
-
-                {% endif %}
+                    <div class="col-md-6 text-center">
+                        <p>{{ participant.nom }}</p>
+                        <p>{{ participant.prenom }}</p>
+                        <p>{{ participant.telephone }}</p>
+                        <p>{{ participant.email }}</p>
+                        <p>{{ participant.site.nom }}</p>
+                        <a href="{{ path('sortie_list',{id:participant.id}) }}">Retour</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 
 {% endblock %}

@@ -48,20 +48,25 @@ class ParticipantController extends AbstractController
         $participant = $participantRepository->find($id);
 
         $form = $this->createForm(ParticipantType::class, $participant);
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-                $participant->setPassword(
-                $passwordEncoder->encodePassword(
-                    $participant,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-
+            $originalPassword = $participant->getPassword();
             if (!$participant) {
                 return $this->createNotFoundException("participant incorect");
+            }
+            if (!empty($form['password']->getData())) {
+                $participant->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $participant,
+                        $form['password']->getData()
+                    )
+                );
+            } else {
+                // set old password
+                $participant->setPassword($originalPassword);
             }
             $entityManager->persist($participant);
             $entityManager->flush();

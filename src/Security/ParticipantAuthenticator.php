@@ -39,13 +39,13 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $credentials = [
             'id' => $request->request->get('id'),
@@ -71,7 +71,7 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email ou pseudo errone');
+            throw new CustomUserMessageAuthenticationException('Email ou pseudo erroné');
         }
 
         return $user;

@@ -9,6 +9,7 @@
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
     use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+    use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,16 +58,20 @@
                         ]),
                     ],
                 ])
-                ->add('plainPassword', PasswordType::class,
-                    [
+                ->add('plainPassword', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'options' => ['attr' => ['class' => 'password-field']],
+                    'required' => true,
+                    'first_options'  => ['label' => 'Mot de passe (Minimum 6 caractères)'],
+                    'second_options' => ['label' => 'Repetez mot de passe'],
                     'mapped' => false,
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Entrez votre mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractères minimum',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),

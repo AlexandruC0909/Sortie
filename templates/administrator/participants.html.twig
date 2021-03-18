@@ -3,17 +3,20 @@
 {% block title %}Liste des participants{% endblock %}
 
 {% block body %}
+    <h1>Gérer les participants</h1>
+
+
+    {{ form_start(searchFormParticipant) }}
+
+    {{ form_label(searchFormParticipant.pseudo) }}
+    {{ form_widget(searchFormParticipant.pseudo) }}
+    {{ form_errors(searchFormParticipant.pseudo) }}
+
+    {{ form_end(searchFormParticipant) }}
+
     <div class="container" id="listeParticipants">
         <div class="row">
             <div class="col">
-
-                {{ form_start(searchFormParticipant) }}
-
-                {{ form_label(searchFormParticipant.pseudo) }}
-                {{ form_widget(searchFormParticipant.pseudo) }}
-                {{ form_errors(searchFormParticipant.pseudo) }}
-
-                {{ form_end(searchFormParticipant) }}
                 <table class="table ">
                     <thead>
                     <tr>

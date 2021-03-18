@@ -3,17 +3,16 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="{{ path('app_register') }}">Inscrire un participant</a>
-                <a href="{{ path('administrator_sites') }}">Liste Sites</a>
-                <a href="{{ path('administrator_villes') }}">Liste Villes</a>
-                <a href="{{ path('administrator_listSortie') }}">Liste Sorties</a>
-                <a href="{{ path('administrator_listParticipants') }}">Liste Participants</a>
 
-            </div>
-        </div>
+    <div class="btn-group" id="btnAdmin">
+        <a href="{{ path('administrator_sites') }}" class="btn btn-warning">Liste Sites</a>
+        <a href="{{ path('administrator_villes') }}" class="btn btn-warning">Liste Villes</a>
+        <a href="{{ path('administrator_listSortie') }}" class="btn btn-warning">Liste Sorties</a>
+        <a href="{{ path('administrator_listParticipants') }}" class="btn btn-warning">Liste Participants</a>
     </div>
 
+    <button type="button" class="btn btn-success">
+        <a id="btnParticipant" href="{{ path('app_register') }}">Inscrire
+            un participant</a>
+    </button>
 {% endblock %}

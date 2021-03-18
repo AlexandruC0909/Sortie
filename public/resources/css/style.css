@@ -25,7 +25,6 @@ h1 {
 {
     padding: 10px;
     flex: 1;
-    background-color: wheat;
     color: black;
     border: 0.1em solid;
     box-shadow: 8px 8px 6px black;
@@ -35,14 +34,34 @@ h1 {
     text-decoration: none;
     color: white;
 }
+#panelParticipants
+{
+    background-color: #AAAAAA;
+}
+#btnAdmin
+{
+    padding: 10px;
+}
+#btnParticipant
+{
+    text-decoration: none;
+    color: white;
+}
+#searchParticipant
+{
+    width: 30em;
+    height: 2.5em;
+}
 #listeParticipants
 {
-    padding: 50px;
-    flex: 1;
-    background-color: #999999;
-    color: black;
-    border: 0.1em solid;
-    box-shadow: 6px 6px 6px black;
+    overflow : scroll;
+    border:#000000 1px solid;
+    width: 1000px;
+    height: 500px;
+}
+#p
+{
+    border:#000000 1px solid;
 }
 /*****************************************************************************
 **************                    NAVBAR                             *********

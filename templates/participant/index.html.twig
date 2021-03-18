@@ -18,7 +18,10 @@
                         <p>Nr Tel:</p>
                         <p>Email:</p>
                         <p>Site:</p>
-                        <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
+                        {% if (app.user.id == participant.id) %}
+                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
+                        {% endif %}
+
                     </div>
                     <div class="col-md-6 text-center">
                         <p>{{ participant.nom }}</p>

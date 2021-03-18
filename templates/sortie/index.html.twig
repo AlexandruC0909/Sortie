@@ -48,7 +48,9 @@
                             {% endif %}
                         {% endfor %}
                     </td>
-                    <td>{{ sortie.organizateur.nom }}</td>
+                    <td>
+                        <a href="{{ path('participant_participant', {id: sortie.organizateur.id}) }}">{{ sortie.organizateur.nom }}</a>
+                    </td>
                     <td>{{ sortie.organizateur.site.nom}}</td>
                     <td>
                         {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 1) %}

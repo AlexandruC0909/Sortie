@@ -35,7 +35,6 @@ class VilleRepository extends ServiceEntityRepository
 
     /**
      * @param $nom
-     * @return int|mixed|string
      */
     public function searchVille($nom){
         $query = $this->createQueryBuilder('v');

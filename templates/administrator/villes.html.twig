@@ -6,7 +6,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form class="d-flex mb-3 mt-2">
                     {{ form_start(formSearchVille) }}
                     {{ form_errors(formSearchVille) }}
 
@@ -15,7 +14,6 @@
                     {{ form_errors(formSearchVille.nom) }}
 
                     {{ form_end(formSearchVille) }}
-                </form>
                 {% if (villes ) %}
                     {% for ville in villes %}
                         <div class="card" style="">

@@ -153,8 +153,7 @@ class AdministratorController extends AbstractController
         $search = $formSearchVille->handleRequest($request);
 
         if ($formSearchVille->isSubmitted() && $formSearchVille->isValid()){
-            $villes = $VilleRepository->searchVille(
-                $formSearchVille->get('nom')->getData()
+            $villes = $VilleRepository->searchVille($search->get('nom')->getData()
             );
         }
         return $this->render('administrator/villes.html.twig', [

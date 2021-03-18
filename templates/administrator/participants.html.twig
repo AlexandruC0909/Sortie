@@ -3,23 +3,24 @@
 {% block title %}Liste des participants{% endblock %}
 
 {% block body %}
-    <h1>Gérer les participants</h1>
-
-
-    {{ form_start(searchFormParticipant) }}
-
-    {{ form_label(searchFormParticipant.pseudo) }}
-    {{ form_widget(searchFormParticipant.pseudo) }}
-    {{ form_errors(searchFormParticipant.pseudo) }}
-
-    {{ form_end(searchFormParticipant) }}
 
     <div class="container" id="listeParticipants">
         <div class="row">
             <div class="col">
-                <table class="table ">
+                <h1>Gérer les participants</h1>
+                <h4>Filtrer les participants</h4>
+                <form class="d-flex mb-2 mt-2" id="searchParticipant">
+                    {{ form_start(searchFormParticipant) }}
+
+                    {{ form_label(searchFormParticipant.pseudo) }}
+                    {{ form_widget(searchFormParticipant.pseudo) }}
+                    {{ form_errors(searchFormParticipant.pseudo) }}
+
+                    {{ form_end(searchFormParticipant) }}
+                </form>
+                <table class="table table-striped">
                     <thead>
-                    <tr>
+                    <tr id="panelParticipants">
                         <th scope="col">Pseudo utilisateur</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>

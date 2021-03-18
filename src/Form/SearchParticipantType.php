@@ -15,10 +15,8 @@ class SearchParticipantType extends AbstractType
         $builder
             ->add('pseudo', SearchType::class,
             [
-                'label' => 'Filtrer les participants',
-                'attr' => [
-                    'placeholder' => 'Pseudo de l\'utilisateur',
-                ],
+                'label' => 'Le pseudo contient : ',
+
                 'required' => false
             ])
 

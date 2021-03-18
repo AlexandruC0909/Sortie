@@ -48,7 +48,7 @@ class SortieSearchType extends AbstractType
             ])
             ->add('dateInf',DateType::class,
                 [
-                    'label'=>'dateInferiore',
+                    'label'=>'entre',
                     'attr' => ['class' => 'dateFormulaire'],
                     'widget' => 'single_text',
                     'required' => false,
@@ -56,7 +56,7 @@ class SortieSearchType extends AbstractType
             )
             ->add('dateSup',DateType::class,
                 [
-                    'label'=>'dateSuperiore',
+                    'label'=>'et',
                     'attr' => ['class' => 'dateFormulaire'],
                     'widget' => 'single_text',
                     'required' => false,

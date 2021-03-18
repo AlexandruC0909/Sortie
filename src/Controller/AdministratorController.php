@@ -148,18 +148,17 @@ class AdministratorController extends AbstractController
         }
         /*-------------------------  Recherche ville  ----------------------*/
         $VilleRepository = $entityManager->getRepository(Ville::class);
-        $villeSearch = $VilleRepository->findAll();
-        $formSearch = $this->createForm(SearchVilleType::class);
-        $search = $formSearch->handleRequest($request);
+        $villes = $VilleRepository->findAll();
+        $formSearchVille = $this->createForm(SearchVilleType::class);
+        $search = $formSearchVille->handleRequest($request);
 
-        if ($formSearch->isSubmitted() && $formSearch->isValid()){
-            $villeSearch = $VilleRepository->searchVille(
-                $search->get('nom')->getData()
+        if ($formSearchVille->isSubmitted() && $formSearchVille->isValid()){
+            $villes = $VilleRepository->searchVille(
+                $formSearchVille->get('nom')->getData()
             );
         }
         return $this->render('administrator/villes.html.twig', [
-            'formSearchVille' => $formSearch->createView(),
-            'villesSearch' => $villeSearch,
+            'formSearchVille' => $formSearchVille->createView(),
             'formViewVille' => $villeForm->createView(),
             'villes' => $villes,
         ]);

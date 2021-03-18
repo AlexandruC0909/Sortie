@@ -52,28 +52,28 @@
                     <td>{{ sortie.organizateur.site.nom}}</td>
                     <td>
                         {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 1) %}
-                        <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier<a>
-                                <a href="{{ path('sortie_updateSortie', {id: sortie.id}) }}">Modifier<a>
-                                        <a href="{{ path('sortie_deleteSortie', {id: sortie.id}) }}">Supprimer<a>
+                        <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier</a>
+                                <a href="{{ path('sortie_updateSortie', {id: sortie.id}) }}">Modifier</a>
+                                        <a href="{{ path('sortie_deleteSortie', {id: sortie.id}) }}">Supprimer</a>
 
                         {% endif %}
 
                         {% if (app.user.id != sortie.organizateur.id and sortie.etat.id == 2 ) %}
-                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer<a>
+                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
                                 {% for participant in sortie.listeParticipants %}
                                     {% if(app.user.id == participant.id) %}
-                                        <a href="{{ path('sortie_desister', {id: sortie.id}) }}">desister<a>
+                                        <a href="{{ path('sortie_desister', {id: sortie.id}) }}">desister</a>
                                     {% else %}
-                                        <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer<a>
+                                        <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
                                     {% endif %}
                                 {% endfor %}
                         {% endif %}
 
                         {% if (sortie.etat.id != 1 ) %}
-                           <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Aficher<a>
+                           <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Aficher</a>
                         {% endif %}
                                    {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 2 ) %}
-                                   <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuller<a>
+                                   <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuller</a>
                                            {% endif %}
 
 

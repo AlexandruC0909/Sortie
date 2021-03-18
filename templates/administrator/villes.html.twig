@@ -6,31 +6,31 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                {{ form_start(formSearchVille) }}
-                {{ form_errors(formSearchVille) }}
+                <form class="d-flex mb-3 mt-2">
+                    {{ form_start(formSearchVille) }}
+                    {{ form_errors(formSearchVille) }}
 
-                {{ form_label(formSearchVille.nom) }}
-                {{ form_widget(formSearchVille.nom) }}
-                {{ form_errors(formSearchVille.nom) }}
+                    {{ form_label(formSearchVille.nom) }}
+                    {{ form_widget(formSearchVille.nom) }}
+                    {{ form_errors(formSearchVille.nom) }}
 
-                {{ form_end(formSearchVille) }}
+                    {{ form_end(formSearchVille) }}
+                </form>
                 {% if (villes ) %}
                     {% for ville in villes %}
-                        {% if villesSearch %}
-                            <div class="card" style="">
-                                <div class="card-body">
+                        <div class="card" style="">
+                            <div class="card-body">
 
 
-                                    <h5 class="card-title">{{ ville.nom }}</h5>
-                                    <h5 class="card-title">{{ ville.codePostal }}</h5>
-                                    <a href="{{ path('administrator_deleteVille',{id:ville.id}) }}">
-                                        delete
-                                    </a>
+                                <h5 class="card-title">{{ ville.nom }}</h5>
+                                <h5 class="card-title">{{ ville.codePostal }}</h5>
+                                <a href="{{ path('administrator_deleteVille',{id:ville.id}) }}">
+                                    delete
+                                </a>
 
-                                </div>
                             </div>
+                        </div>
 
-                        {% endif %}
                     {% endfor %}
                 {% endif %}
                 {{ form_start(formViewVille) }}

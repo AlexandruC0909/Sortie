@@ -13,13 +13,13 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 text-center">
-                        <p>Nom:</p>
-                        <p>Prenom:</p>
-                        <p>Nr Tel:</p>
-                        <p>Email:</p>
-                        <p>Site:</p>
+                        <p>Nom :</p>
+                        <p>Prenom :</p>
+                        <p>Numéro de telephone :</p>
+                        <p>Email :</p>
+                        <p>Site :</p>
                         {% if (app.user.id == participant.id) %}
-                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">modifier profil</a>
+                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">Modifier profil</a>
                         {% endif %}
 
                     </div>

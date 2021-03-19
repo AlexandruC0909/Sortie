@@ -2,8 +2,11 @@
     <img src="{{ asset('/resources/images/sortir.svg') }}" alt="">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <a class="navbar-brand" href="{{ path('sortie_list') }}">Home</a>
+
             {% if app.user %}
+                <li>
+                    <a class="navbar-brand" href="{{ path('sortie_list') }}">Home</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('participant_participant', {id: app.user.id}) }}">Salut {{ app.user.nom }} </a>
                 </li>
@@ -24,8 +27,6 @@
                 <li class="nav-item active">
                     <a  class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
-
-
             {% else %}
                {#<li class="nav-item active">
                     <a class="nav-link" href="{{ path('app_register') }}">Register</a>
@@ -33,7 +34,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                 </li>
-
             {% endif %}
         </ul>
     </div>

@@ -9,19 +9,22 @@
                 <div class="col">
                     <h1>Gérer les participants</h1>
                     <h4>Filtrer les participants</h4>
-                    <form class="d-flex mb-2 mt-2" id="searchParticipant">
-                        {{ form_start(searchFormParticipant) }}
+                  <div class="row">
+                      <div class="col-md-4">
+                          {{ form_start(searchFormParticipant) }}
 
-                        {{ form_label(searchFormParticipant.pseudo) }}
-                        {{ form_widget(searchFormParticipant.pseudo) }}
-                        {{ form_errors(searchFormParticipant.pseudo) }}
+                          {{ form_label(searchFormParticipant.pseudo) }}
+                          {{ form_widget(searchFormParticipant.pseudo) }}
+                          {{ form_errors(searchFormParticipant.pseudo) }}
 
-                        {{ form_end(searchFormParticipant) }}
-                    </form>
-                    <div id="listeParticipants">
-                    <table class="table table-striped">
+                          {{ form_end(searchFormParticipant) }}
+                      </div>
+                      <div class="col-md-6"></div>
+                  </div>
+                    <div>
+                    <table class="table table-striped table-responsive">
                         <thead>
-                        <tr id="panelParticipants">
+                        <tr>
                             <th scope="col">Pseudo utilisateur</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>

@@ -84,6 +84,8 @@ DQL;
         if ($notParticipantId!=null){
 
             $query->andWhere('q.id <> :idNotParticipant');
+            $query->orWhere('q.id IS NULL');
+            $query->andWhere('s.organizateur <> :idNotParticipant');
             $query ->setParameter(':idNotParticipant',$notParticipantId);
 
         }

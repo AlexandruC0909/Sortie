@@ -61,14 +61,17 @@
                         {% endif %}
 
                         {% if (app.user.id != sortie.organizateur.id and sortie.etat.id == 2 ) %}
-                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
+
                                 {% for participant in sortie.listeParticipants %}
                                     {% if(app.user.id == participant.id) %}
                                         <a href="{{ path('sortie_desister', {id: sortie.id}) }}">desister</a>
-                                    {% else %}
-                                        <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
+                                        {% else %}
+                                            <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
                                     {% endif %}
                                 {% endfor %}
+                            {% if (sortie.listeParticipants.count == 0 )  %}
+                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
+                            {% endif %}
                         {% endif %}
 
                         {% if (sortie.etat.id != 1 ) %}

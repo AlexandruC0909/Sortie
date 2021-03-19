@@ -37,6 +37,7 @@ class SortieController extends AbstractController
         $sorties = $SortieRepository->findAll();
         $formSearch = $this->createForm(SortieSearchType::class);
         $search = $formSearch->handleRequest($request);
+        $participant = $this->getUser();
 
         if ($formSearch->isSubmitted() && $formSearch->isValid()){
             if($search->get('organisateur')->getData()){

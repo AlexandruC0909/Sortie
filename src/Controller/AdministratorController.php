@@ -61,7 +61,7 @@ class AdministratorController extends AbstractController
         $search = $searchFormParticipant->handleRequest($request);
 
         if ($searchFormParticipant->isSubmitted() && $searchFormParticipant->isValid()){
-            $participants = $participantRepository->searchParticipant($searchFormParticipant->get('pseudo')->getData());
+            $participants = $participantRepository->searchParticipant($search->get('pseudo')->getData());
         }
 
 

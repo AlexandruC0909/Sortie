@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -19,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"pseudo"}, message="Pseudo déjà utilisé")
  * @Vich\Uploadable
  */
-class Participant implements UserInterface
+class Participant implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -28,11 +31,6 @@ class Participant implements UserInterface
      */
     private $id;
 
-    /**
-     * @Vich\UploadableField(mapping="user_image", fileNameProperty="filename")
-     * @var File|null
-     */
-    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -40,6 +38,14 @@ class Participant implements UserInterface
      */
     private $filename;
 
+    /**
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="filename")
+     * @var File|null
+     * @Assert\Image(
+     *     mimeTypes="image/jpeg"
+     * )
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -105,7 +111,6 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTimeInterface|null
      */
      private $updated_at;
 
@@ -365,30 +370,40 @@ class Participant implements UserInterface
     /**
      * @param File|UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(?File $imageFile = null): Participant
     {
         $this->imageFile = $imageFile;
-        if (null !== $imageFile){
-            $this->updated_at = new \DateTimeImmutable();
+        if ($this->imageFile instanceof UploadedFile){
+            $this->updated_at = new DateTime('now');
         }
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
+
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    /**
-     * @param mixed $updated_at
-     * @return Participant
-     */
-    public function setUpdatedAt($updated_at): Participant
+    public function setUpdatedAt($updated_at): self
     {
         $this->updated_at = $updated_at;
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize(): string
+    {
+        return serialize([$this->id, $this->email, $this->password]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized): void
+    {
+        [$this->id, $this->email, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
 }

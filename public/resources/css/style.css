@@ -64,9 +64,11 @@ table{
     border: #000000 2px solid;
 
 }
+table>thead{
+    background-color: #999999;
+}
 .villes thead {
     display:block;
-    background-color: gray;
 }
 .villes tbody {
     display:block;
@@ -75,16 +77,16 @@ table{
 }
 
 .villes thead tr th:nth-child(1) { /* column 1 ! */
-    width:25em;
+    width: 60%;
 }
 .villes thead tr th:nth-child(2) { /* column 2 */
-    width:14em;
+    width: 33%;
 }
 .villes tbody tr:first-child td:nth-child(1) { /* column 1 ! */
-    width:25em;
+    width: 60%;
 }
 .villes tbody tr:first-child td:nth-child(2) { /* column 2 */
-    width:16em;
+    width: 25%;
 }
 
 /*****************************************************************************
@@ -93,7 +95,6 @@ table{
 
 .sorties thead {
     display:block;
-    background-color: gray;
 }
 .sorties tbody {
     display:block;
@@ -102,52 +103,52 @@ table{
 }
 
 .sorties thead tr th:nth-child(1) { /* column 1 ! */
-    width:10em;
+    width:14%;
 }
 .sorties thead tr th:nth-child(2) { /* column 2 */
-    width:8em;
+    width:10%;
 }
 .sorties thead tr th:nth-child(3) { /* column 3 */
-    width:6em;
+    width:10%;
 }
 .sorties thead tr th:nth-child(4) { /* column 4 */
-    width: 9em;
+    width: 12%;
 }
 .sorties thead tr th:nth-child(5) { /* column 5 */
-    width:5em;
+    width:10%;
 }
 .sorties thead tr th:nth-child(6) { /* column 6 */
-    width:9em;
+    width:10%;
 }
 .sorties thead tr th:nth-child(7) { /* column 7 */
-    width:10em;
+    width:12%;
 }
 .sorties thead tr th:nth-child(8) { /* column 8 */
-    width:7em;
+    width:12%;
 }
 .sorties tbody tr:first-child td:nth-child(1) { /* column 1 ! */
-    width:10em;
+    width:14%;
 }
 .sorties tbody tr:first-child td:nth-child(2) { /* column 2 */
-    width:8em;
+    width: 10%;
 }
 .sorties tbody tr:first-child td:nth-child(3) { /* column 3 */
-    width:8em;
+    width: 10%;
 }
 .sorties tbody tr:first-child td:nth-child(4) { /* column 4 */
-    width:6em;
+    width: 12%;
 }
 .sorties tbody tr:first-child td:nth-child(5) { /* column 5 */
-    width:8em;
+    width: 10%;
 }
 .sorties tbody tr:first-child td:nth-child(6) { /* column 6 */
-    width:8em;
+    width: 10%;
 }
 .sorties tbody tr:first-child td:nth-child(7) { /* column 7 */
-    width:8em;
+    width: 12%;
 }
 .sorties tbody tr:first-child td:nth-child(8) { /* column 8 */
-    width:9em;
+    width: 12%;
 }
 
 /*****************************************************************************
@@ -156,7 +157,6 @@ table{
 
 .sites thead {
     display:block;
-    background-color: gray;
 }
 .sites tbody {
     display:block;
@@ -165,16 +165,11 @@ table{
 }
 
 .sites thead tr th:nth-child(1) { /* column 1 ! */
-    width:31em;
+    width: 91%;
 }
-.sites thead tr th:nth-child(2) { /* column 2 */
-    width:15em;
-}
+
 .sites tbody tr:first-child td:nth-child(1) { /* column 1 ! */
-    width:40em;
-}
-.sites tbody tr:first-child td:nth-child(2) { /* column 2 */
-    width:12em;
+    width:90%;
 }
 
 /*****************************************************************************
@@ -183,7 +178,6 @@ table{
 
 .participants thead {
     display:block;
-    background-color: gray;
 }
 .participants tbody {
     display:block;
@@ -192,28 +186,55 @@ table{
 }
 
 .participants thead tr th:nth-child(1) { /* column 1 ! */
-    width:10em;
+    width: 25%;
 }
 .participants thead tr th:nth-child(2) { /* column 2 */
-    width:5em;
+    width: 16%;
 }
 .participants thead tr th:nth-child(3) { /* column 3 */
-    width:8em;
+    width: 23%;
 }
 .participants thead tr th:nth-child(4) { /* column 4 */
-    width: 15em;
+    width: 24%;
 }
 
 .participants tbody tr:first-child td:nth-child(1) { /* column 1 ! */
-    width:10em;
+    width: 20%;
 }
 .participants tbody tr:first-child td:nth-child(2) { /* column 2 */
-    width:6em;
+    width: 16%;
 }
 .participants tbody tr:first-child td:nth-child(3) { /* column 3 */
-    width:8em;
+    width: 18%;
 }
 .participants tbody tr:first-child td:nth-child(4) { /* column 4 */
-    width:16em;
+    width: 23%;
+}
+/*****************************************************************************
+**************                    sites                              *********
+*****************************************************************************/
+
+.description-sortie thead {
+    display:block;
+}
+.description-sortie tbody {
+    display:block;
+    height:400px; /* 5 times the equivalent of a text "size". */
+    overflow-y:scroll;
 }
 
+.description-sortie thead tr th:nth-child(1) { /* column 1 ! */
+    width: 88%;
+}
+
+.description-sortie tbody tr:first-child td:nth-child(1) { /* column 1 ! */
+    width: 82%;
+}
+
+/*****************************************************************************
+**************                    profil participant                 *********
+*****************************************************************************/
+.profil-image img{
+    height: 70%;
+    width: auto;
+}

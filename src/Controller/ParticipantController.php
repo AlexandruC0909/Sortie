@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Participant;
 
 use App\Form\ParticipantType;
-use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +20,9 @@ class ParticipantController extends AbstractController
 {
     /**
      * @Route("/{id}", name="participant")
+     * @param $id
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function index(
         $id,
@@ -36,6 +38,11 @@ class ParticipantController extends AbstractController
 
     /**
      * @Route("/update/participant/{id}", name="updateParticipant")
+     * @param $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
      */
     public function update(
         $id,
@@ -44,15 +51,13 @@ class ParticipantController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder): Response
     {
 
-        $participantRepository = $entityManager->getRepository(Participant::class);
-        $participant = $participantRepository->find($id);
-
+        $participant = $this->getUser();
         $form = $this->createForm(ParticipantType::class, $participant);
-
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $originalPassword = $participant->getPassword();
             if (!$participant) {
                 return $this->createNotFoundException("participant incorect");
@@ -66,6 +71,7 @@ class ParticipantController extends AbstractController
                 );
             } else {
                 // set old password
+
                 $participant->setPassword($originalPassword);
             }
             $entityManager->persist($participant);

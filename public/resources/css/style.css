@@ -210,6 +210,26 @@ table>thead{
 .participants tbody tr:first-child td:nth-child(4) { /* column 4 */
     width: 23%;
 }
+/*****************************************************************************
+**************                    sites                              *********
+*****************************************************************************/
+
+.description-sortie thead {
+    display:block;
+}
+.description-sortie tbody {
+    display:block;
+    height:400px; /* 5 times the equivalent of a text "size". */
+    overflow-y:scroll;
+}
+
+.description-sortie thead tr th:nth-child(1) { /* column 1 ! */
+    width: 88%;
+}
+
+.description-sortie tbody tr:first-child td:nth-child(1) { /* column 1 ! */
+    width: 82%;
+}
 
 /*****************************************************************************
 **************                    profil participant                 *********

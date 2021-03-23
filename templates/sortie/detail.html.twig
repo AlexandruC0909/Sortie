@@ -13,12 +13,15 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 text-center">
-                        <p>Nom de la sortie: {{ sortie.nom }}</p>
-                        <p>Date et heure de la sortie: {{ sortie.dateHeureDebut|date('d/m/Y h:i') }} </p>
-                        <p>Date limite d'inscription: {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
-                        <p>Nombre de places: {{ sortie.nbInscriptionsMax }}</p>
-                        <p>Durée: {{ sortie.duree }} minutes</p>
-                        <p>Description et infos: {{ sortie.infoSortie }}</p>
+                        <p>Nom de la sortie : {{ sortie.nom }}</p>
+                        <p>Date et heure de la sortie : {{ sortie.dateHeureDebut|date('d/m/Y h:i') }} </p>
+                        <p>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('d/m/Y') }}</p>
+                        <p>Nombre de places : {{ sortie.nbInscriptionsMax }}</p>
+                        <p>Durée : {{ sortie.duree }} minutes</p>
+                        <p>Description et infos : {{ sortie.infoSortie }}</p>
+                        <p>Motif d'annulation : {{ sortie.motif }}</p>
+
+
                     </div>
                     <div class="col-md-6 text-center">
                         <p>Organisateur : <a href="{{ path('participant_participant', {id: sortie.organizateur.id}) }}">{{ sortie.organizateur.nom }}</a></p>

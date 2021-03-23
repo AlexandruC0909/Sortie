@@ -18,7 +18,7 @@
                                 <th scope="col">inscrits/places</th>
                                 <th scope="col">Etat</th>
                                 <th scope="col">Inscrit</th>
-                                <th scope="col">Organizateur</th>
+                                <th scope="col">Organisateur</th>
                                 <th scope="col">Site</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -47,7 +47,7 @@
                                         <td>{{ sortie.organizateur.site.nom }}</td>
                                         <td>
                                             {% if (sortie.etat.id == 2 ) %}
-                                                <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Annuler</a>
+                                                <a href="{{ path('sortie_annuler', {id: sortie.id}) }}">Annuler</a>
                                             {% endif %}
 
 

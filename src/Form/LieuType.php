@@ -27,12 +27,12 @@ class LieuType extends AbstractType
             )
             ->add('latitude',null,
                 [
-                    'label'=>'latitute'
+                    'label'=>'Latitute :'
                 ]
             )
             ->add('longitude',null,
                 [
-                    'label'=>'longitude'
+                    'label'=>'Longitude :'
                 ]
             )
 

@@ -22,12 +22,12 @@ class SortieFormType extends AbstractType
         $builder
             ->add('nom',null,
                 [
-                    'label'=>'Nom'
+                    'label'=>'Nom de la sortie :'
                 ]
             )
             ->add('dateHeureDebut',DateTimeType::class,
                 [
-                    'label'=>'dateDebut',
+                    'label'=>'Date et heure de la sortie :',
                     'attr' => ['class' => 'dateFormulaire'],
                     'widget' => 'single_text',
                     'required' => true,
@@ -35,13 +35,13 @@ class SortieFormType extends AbstractType
             )
             ->add('duree',\Symfony\Component\Form\Extension\Core\Type\IntegerType::class,
                 [
-                    'label'=>'duree',
+                    'label'=>'Durée :',
                     'attr' => ['min' => 20]
                 ]
             )
             ->add('dateLimiteInscription',DateType::class,
                 [
-                    'label'=>'dateLimite',
+                    'label'=>'Date limite d\'inscription :',
                     'attr' => ['class' => 'dateFormulaire'],
                     'widget' => 'single_text',
                     'required' => true,
@@ -49,19 +49,19 @@ class SortieFormType extends AbstractType
             )
             ->add('nbInscriptionsMax',\Symfony\Component\Form\Extension\Core\Type\IntegerType::class,
                 [
-                    'label'=>'nbPlaces',
+                    'label'=>'Nombre de places :',
                     'attr' => ['min' => 1]
                 ]
             )
             ->add('infoSortie',TextareaType::class,
                 [
-                    'label'=>'description'
+                    'label'=>'Description et infos :'
                 ]
             )
 
             ->add('lieu', LieuType::class, [
                 'data_class' => Lieu::class,
-                'label'=>'Lieu'
+                'label'=>'Lieu :'
 
             ])
 

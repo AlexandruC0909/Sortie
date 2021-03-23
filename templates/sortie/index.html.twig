@@ -21,13 +21,13 @@
             <table class="table ">
                 <thead>
                 <tr>
-                    <th scope="col">Nom de la Sortie</th>
+                    <th scope="col">Nom de la sortie</th>
                     <th scope="col">Date de la sortie</th>
                     <th scope="col">Cloture</th>
-                    <th scope="col">inscrits/places</th>
+                    <th scope="col">Inscrits/places</th>
                     <th scope="col">Etat</th>
                     <th scope="col">Inscrit</th>
-                    <th scope="col">Organizateur</th>
+                    <th scope="col">Organisateur</th>
                     <th scope="col">Site</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -64,21 +64,21 @@
 
                                 {% for participant in sortie.listeParticipants %}
                                     {% if(app.user.id == participant.id) %}
-                                        <a href="{{ path('sortie_desister', {id: sortie.id}) }}">desister</a>
+                                        <a href="{{ path('sortie_desister', {id: sortie.id}) }}">Se désister</a>
                                         {% else %}
-                                            <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
+                                            <a href="{{ path('sortie_participer', {id: sortie.id}) }}">Participer</a>
                                     {% endif %}
                                 {% endfor %}
                             {% if (sortie.listeParticipants.count == 0 )  %}
-                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">participer</a>
+                                <a href="{{ path('sortie_participer', {id: sortie.id}) }}">Participer</a>
                             {% endif %}
                         {% endif %}
 
                         {% if (sortie.etat.id != 1 ) %}
-                           <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Aficher</a>
+                           <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Afficher</a>
                         {% endif %}
                                    {% if (app.user.id == sortie.organizateur.id and sortie.etat.id == 2 ) %}
-                                   <a href="{{ path('sortie_anuler', {id: sortie.id}) }}">Anuller</a>
+                                       <a href="{{ path('sortie_annuler', {id: sortie.id}) }}" class="btn btn-danger">Annuler</a>
                                            {% endif %}
 
 
@@ -95,3 +95,8 @@
 </div>
 
 {% endblock %}
+
+
+{#
+<a href="{{ path('sortie_annuler', {id: sortie.id}) }}">Annuler</a>
+#}

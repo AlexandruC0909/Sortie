@@ -55,6 +55,28 @@ DQL;
         return $query->getResult();
     }
 
+    /*
+public function motifAnnulation($id, $motif)
+{
+     $dql = <<<DQL
+UPDATE App\Entity\Sortie a
+SET
+    a.motif =:motif
+
+WHERE a.id =:id
+
+DQL;
+
+     $entityManager = $this->getEntityManager();
+     $query = $entityManager->createQuery($dql);
+     $query->setParameter(':motif', $motif);
+     $query->setParameter(':id', $id);
+
+     return $query->getResult();
+}
+
+    */
+
     public function search($nom, $sites,$organisateurId,$idParticipant,$notParticipantId,$dateInf,$dateSup){
         $query = $this->createQueryBuilder('s');
         $query->leftJoin('s.organizateur', 'p');

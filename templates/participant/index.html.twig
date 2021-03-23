@@ -4,36 +4,42 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4 offset-md-4">
-                <h3 class="text-center">
-                    {{ participant.pseudo }}
-                </h3>
-                <br>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <p>Nom :</p>
-                        <p>Prenom :</p>
-                        <p>Numéro de telephone :</p>
-                        <p>Email :</p>
-                        <p>Site :</p>
-                        {% if (app.user.id == participant.id) %}
-                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">Modifier profil</a>
-                        {% endif %}
+    <div class="container">
+        <div class="row mt-3">
+            <h1>
+                {{ participant.pseudo }}
+            </h1>
+            <div class="row mt-5">
+                <div class="col-md-6 profil-image">
+                    {% if participant.filename %}
+                        <img src="{{ vich_uploader_asset(participant, 'imageFile') }}" alt="{{ participant.filename }}">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
 
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <p>{{ participant.nom }}</p>
-                        <p>{{ participant.prenom }}</p>
-                        <p>{{ participant.telephone }}</p>
-                        <p>{{ participant.email }}</p>
-                        <p>{{ participant.site.nom }}</p>
-                        <a href="{{ path('sortie_list',{id:participant.id}) }}">Retour</a>
-                    </div>
+                    <p>Nom : {{ participant.nom }}</p>
+                    <p>Prenom : {{ participant.prenom }}</p>
+                    <p>Numéro de telephone : {{ participant.telephone }}</p>
+                    <p>Email : {{ participant.email }}</p>
+                    <p>Campus : {{ participant.site.nom }}</p>
                 </div>
             </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% if (app.user.id == participant.id) %}
+                            <a href="{{ path('participant_updateParticipant',{id:participant.id}) }}">
+                                <button class="btn btn-warning">Modifier profil</button>
+                            </a>
+                        {% endif %}
+                        <a href="{{ path('sortie_list',{id:participant.id}) }}">
+                            <button class="btn btn-primary">Retour</button>
+                        </a>
+                    </div>
+                </div>
+
+
         </div>
     </div>
+
 
 {% endblock %}

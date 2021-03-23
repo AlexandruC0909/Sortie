@@ -3,16 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository", repositoryClass=ParticipantRepository::class)
  * @UniqueEntity(fields={"email"}, message="Adresse email déjà utilisée")
  * @UniqueEntity(fields={"pseudo"}, message="Pseudo déjà utilisé")
+ * @Vich\Uploadable
  */
 class Participant implements UserInterface
 {
@@ -22,6 +27,19 @@ class Participant implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="filename")
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $filename;
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -84,6 +102,12 @@ class Participant implements UserInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTimeInterface|null
+     */
+     private $updated_at;
 
     public function __construct()
     {
@@ -312,4 +336,59 @@ class Participant implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string|null $filename
+     * @return void
+     */
+    public function setFilename(?string $filename): void
+    {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        if (null !== $imageFile){
+            $this->updated_at = new \DateTimeImmutable();
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param mixed $updated_at
+     * @return Participant
+     */
+    public function setUpdatedAt($updated_at): Participant
+    {
+        $this->updated_at = $updated_at;
+        return $this;
+    }
+
 }

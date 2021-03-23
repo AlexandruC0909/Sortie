@@ -100,8 +100,6 @@ class AdministratorController extends AbstractController
         Request $request
     ): Response
     {
-/*        $siteRepository = $entityManager->getRepository(Site::class);
-        $sites = $siteRepository->findAll();*/
 
         $site = new Site();
 

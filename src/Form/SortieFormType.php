@@ -36,7 +36,7 @@ class SortieFormType extends AbstractType
             ->add('duree',\Symfony\Component\Form\Extension\Core\Type\IntegerType::class,
                 [
                     'label'=>'duree',
-                    'attr' => ['min' => 20]
+                    'attr' => ['min' => 1]
                 ]
             )
             ->add('dateLimiteInscription',DateType::class,

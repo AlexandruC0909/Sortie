@@ -13,7 +13,7 @@
 
             {% endif %}
             {% if app.user %}
-            {% if app.user.administrator == 1 %}
+            {% if app.user.administrator == 1 and is_granted('ROLE_ADMIN')   %}
                 <li class="nav-item active">
                     <a  class="nav-link" href="{{ path('administrator_administrator') }}">Espace Admin</a>
                 </li>

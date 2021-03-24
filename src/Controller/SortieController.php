@@ -21,6 +21,7 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+    use Symfony\Component\HttpFoundation\JsonResponse;
 
     /**
      * @Route("/sortie", name="sortie_")
@@ -108,7 +109,7 @@
             $lieu = new Lieu();
 
             $user = $this->getUser();
-            $lieu->addSortie($sortie);
+
             $user->addOrganisateurSortie($sortie);
             $etat->addSortie($sortie);
 
@@ -128,6 +129,7 @@
                     'sortieFormView' => $sortieForm->createView(),
                 ]
             );
+
         }
 
         /**

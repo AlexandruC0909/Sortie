@@ -7,6 +7,7 @@ use App\Form\RaisonAnnulationType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -27,6 +28,8 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotNull()
+     *
      */
     private $dateHeureDebut;
 
@@ -37,6 +40,7 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotNull()
      */
     private $dateLimiteInscription;
 
@@ -64,6 +68,7 @@ class Sortie
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortie",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $lieu;
 
@@ -105,7 +110,7 @@ class Sortie
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut($dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -129,7 +134,7 @@ class Sortie
         return $this->dateLimiteInscription;
     }
 
-    public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
+    public function setDateLimiteInscription($dateLimiteInscription): self
     {
         $this->dateLimiteInscription = $dateLimiteInscription;
 

@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_USER: [ ROLE_USER ]
+        ROLE_ADMIN: [ ROLE_ADMIN ]
+        ROLE_SUPERADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
     encoders:
         App\Entity\Participant:
             algorithm: auto

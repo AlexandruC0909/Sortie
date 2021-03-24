@@ -5,9 +5,11 @@
 
     use App\Entity\Participant;
     use App\Entity\Site;
+    use phpDocumentor\Reflection\Types\Array_;
     use Symfony\Bridge\Doctrine\Form\Type\EntityType;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+    use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
     use Symfony\Component\Form\Extension\Core\Type\PasswordType;
     use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,8 +21,11 @@
 
     class RegistrationFormType extends AbstractType
     {
+
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
+
+
             $builder
                 ->add('email')
                 ->add('pseudo', TextType::class,
@@ -49,18 +54,11 @@
                     [
                         'label' => 'Administrateur',
                     ])
-                ->add('agreeTerms', CheckboxType::class,
-                    [
-                    'mapped' => false,
-                    'constraints' => [
-                        new IsTrue([
-                            'message' => 'You should agree to our terms.',
-                        ]),
-                    ],
-                ])
+
                 ->add('plainPassword', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'options' => ['attr' => ['class' => 'password-field']],
+                    'invalid_message' => 'Les deux mots de passes doivent correspondre.',
                     'required' => true,
                     'first_options'  => ['label' => 'Mot de passe (Minimum 6 caractères)'],
                     'second_options' => ['label' => 'Repetez mot de passe'],
@@ -69,6 +67,7 @@
                         new NotBlank([
                             'message' => 'Entrez votre mot de passe',
                         ]),
+
                         new Length([
                             'min' => 6,
                             'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractères minimum',

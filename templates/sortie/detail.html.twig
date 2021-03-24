@@ -19,7 +19,9 @@
                         <p>Nombre de places : {{ sortie.nbInscriptionsMax }}</p>
                         <p>Durée : {{ sortie.duree }} minutes</p>
                         <p>Description et infos : {{ sortie.infoSortie }}</p>
+                        {% if(sortie.etat.id == 6) %}
                         <p>Motif d'annulation : {{ sortie.motif }}</p>
+                        {% endif %}
 
 
                     </div>

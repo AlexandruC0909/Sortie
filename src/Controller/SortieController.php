@@ -147,6 +147,7 @@
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash("warning","Vous avez été désinscit de cette sortie avec succès");
 
             return $this->redirectToRoute('sortie_list');
         }
@@ -168,6 +169,7 @@
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash("primary","Vous avez été inscrit à cette sortie avec succès");
 
             return $this->redirectToRoute('sortie_list');
         }
@@ -213,7 +215,7 @@
                $sortie->setEtat($etatRepository->findOneBy(['id' => 6]));
 
                $entityManager->flush();
-               $this->addFlash('success', 'La sortie à été annulée ! Le motif d\'annulation à été envoyé aux participants inscrits ! ');
+               $this->addFlash('danger', 'La sortie à été annulée ! Le motif d\'annulation à été envoyé aux participants inscrits ! ');
 
                return $this->redirectToRoute('sortie_list');
            }
@@ -245,7 +247,7 @@
 
 
                 if (!$sortie) {
-                    return $this->createNotFoundException("participant incorect");
+                    return $this->createNotFoundException("participant incorrect");
                 }
                 $entityManager->persist($sortie);
                 $entityManager->flush();
@@ -279,10 +281,9 @@
             $entityManager->remove($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'sortie deleted!.');
+            $this->addFlash('danger', 'Sortie effacée !');
             return $this->redirectToRoute('sortie_list');
 
         }
-
 
     }

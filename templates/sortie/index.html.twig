@@ -57,7 +57,6 @@
                         <a href="{{ path('sortie_publier', {id: sortie.id}) }}">Publier</a>
                                 <a href="{{ path('sortie_updateSortie', {id: sortie.id}) }}">Modifier</a>
                                         <a href="{{ path('sortie_deleteSortie', {id: sortie.id}) }}">Supprimer</a>
-
                         {% endif %}
 
                         {% if (app.user.id != sortie.organizateur.id and sortie.etat.id == 2 ) %}
@@ -67,6 +66,7 @@
                                         <a href="{{ path('sortie_desister', {id: sortie.id}) }}">Se désister</a>
                                         {% else %}
                                             <a href="{{ path('sortie_participer', {id: sortie.id}) }}">Participer</a>
+
                                     {% endif %}
                                 {% endfor %}
                             {% if (sortie.listeParticipants.count == 0 )  %}

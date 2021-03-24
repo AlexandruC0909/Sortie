@@ -36,6 +36,7 @@
                         {{ form_label(sortieFormView.infoSortie) }}
                         {{ form_widget(sortieFormView.infoSortie) }}
                         {{ form_errors(sortieFormView.infoSortie) }}
+
                     </div>
                     <div class="col-md-6 ">
                         {{ form_label(sortieFormView.ville) }}
@@ -45,10 +46,22 @@
                         {{ form_label(sortieFormView.lieu) }}
                         {{ form_widget(sortieFormView.lieu) }}
                         {{ form_errors(sortieFormView.lieu) }}
+                        {{ form_end(sortieFormView) }}
+                        <div class="header"><span>Ajouter un lieu</span>
+
+                        </div>
+                        <div id="lieuForm">
+                        {{ form_start(lieuFormView) }}
+                        {{ form_label(lieuFormView.nom) }}
+                        {{ form_widget(lieuFormView.nom) }}
+                        {{ form_errors(lieuFormView.nom) }}
+
+                        {{ form_end(lieuFormView) }}
+                        </div>
                     </div>
 
                 </div>
-                {{ form_end(sortieFormView) }}
+
                 <a href="{{ path('sortie_list') }}" class="btn btn-success">Retour</a>
             </div>
         </div>
@@ -84,6 +97,22 @@
         })
         });
 
+        $(".header").click(function () {
+
+            $header = $(this);
+            //getting the next element
+            $content = $header.next();
+            //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+            $content.slideToggle(500, function () {
+                //execute this after slideToggle is done
+                //change text of header based on visibility of content div
+                $header.text(function () {
+                    //change text based on condition
+                    return $content.is(":visible") ? "Lieu:" : "Ajouter un lieu";
+                });
+            });
+
+        });
     </script>
 {% endblock %}
 

@@ -8,6 +8,7 @@
     use App\Entity\Site;
     use App\Entity\Sortie;
 
+    use App\Form\LieuType;
     use App\Form\ParticipantType;
     use App\Form\RaisonAnnulationType;
     use App\Form\SortieFormType;
@@ -110,23 +111,36 @@
 
             $user = $this->getUser();
 
-            $user->addOrganisateurSortie($sortie);
-            $etat->addSortie($sortie);
+
+
 
             $sortieForm = $this->createForm(SortieFormType::class, $sortie);
             $sortieForm->handleRequest($request);
 
+            $lieuForm = $this->createForm(LieuType::class,$lieu);
+            $lieuForm->handleRequest($request);
+
+
 
             if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-
+                $user->addOrganisateurSortie($sortie);
+                $etat->addSortie($sortie);
                 $entityManager->persist($sortie);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('sortie_list');
             }
+            if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
+
+                $entityManager->persist($lieu);
+                $entityManager->flush();
+
+               
+            }
             return $this->render('sortie/new.html.twig',
                 [
                     'sortieFormView' => $sortieForm->createView(),
+                    'lieuFormView' =>$lieuForm->createView()
                 ]
             );
 

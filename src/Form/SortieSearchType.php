@@ -62,7 +62,6 @@ class SortieSearchType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->add('Rechercher',SubmitType::class)
         ;
     }
 

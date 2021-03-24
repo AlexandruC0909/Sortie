@@ -6,9 +6,19 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
+                <div class="sortie-list">
+                    <p>Date du jour : {{ date('now') | date('d/m/Y') }}</p>
+                    {% if (sorties) %}
+                        {% for sortie in sorties %}
+                            {% for participant in sortie.listeParticipants %}
+                                {{ participant.prenom }}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            <div class="row">
+                <div class="col-md-5 mt-3">
                 {{ form_start(formSearch) }}
-
                 {{ form_label(formSearch.nom) }}
                 {{ form_widget(formSearch.nom) }}
                 {{ form_errors(formSearch.nom) }}
@@ -17,7 +27,36 @@
                 {{ form_widget(formSearch.site) }}
                 {{ form_errors(formSearch.site) }}
 
+                {{ form_label(formSearch.dateInf) }}
+                {{ form_widget(formSearch.dateInf) }}
+                {{ form_errors(formSearch.dateInf) }}
+
+                {{ form_label(formSearch.dateSup) }}
+                {{ form_widget(formSearch.dateSup) }}
+                {{ form_errors(formSearch.dateSup) }}
+
+                </div>
+                <div class="col-md-5 mt-3">
+
+                    {{ form_label(formSearch.notParticipant) }}
+                    {{ form_widget(formSearch.notParticipant) }}
+                    {{ form_errors(formSearch.notParticipant) }}
+
+                    {{ form_label(formSearch.organisateur) }}
+                    {{ form_widget(formSearch.organisateur) }}
+                    {{ form_errors(formSearch.organisateur) }}
+
+                    {{ form_label(formSearch.participant) }}
+                    {{ form_widget(formSearch.participant) }}
+                    {{ form_errors(formSearch.participant) }}
+                </div>
+                <div class="col-md-2 mt-5">
+                    <button type="submit" class="btn btn-primary">envoyer</button>
                 {{ form_end(formSearch) }}
+                </div>
+            </div>
+
+
                 <table class="table table-striped table-responsive sorties mt-3">
                     <thead>
                     <tr>

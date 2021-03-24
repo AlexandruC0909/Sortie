@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-6 text-center">
                         <p>Organisateur : <a href="{{ path('participant_participant', {id: sortie.organizateur.id}) }}">{{ sortie.organizateur.nom }}</a></p>
-                        <p>Ville organisatrice : {{ sortie.organizateur.site.nom }}</p>
+                        <p>Ville organisatrice : {{ sortie.lieu.ville.nom }}</p>
                         <p>Lieu : {{ sortie.lieu.nom }}</p>
                         <p>Rue: {{ sortie.lieu.rue }}</p>
                         <p>Code postal: {{ sortie.lieu.ville.codePostal }}</p>

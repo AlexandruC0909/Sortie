@@ -35,6 +35,12 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param $etat
+     * @param $id
+     * @return int|mixed|string
+     */
     public function changerStatutSortie($etat,$id)
     {
         $dql = <<<DQL
@@ -45,8 +51,6 @@ SET
 WHERE s.id =:id
 
 DQL;
-
-
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery($dql);
         $query ->setParameter(':etat',$etat);
@@ -55,28 +59,17 @@ DQL;
         return $query->getResult();
     }
 
-    /*
-public function motifAnnulation($id, $motif)
-{
-     $dql = <<<DQL
-UPDATE App\Entity\Sortie a
-SET
-    a.motif =:motif
-
-WHERE a.id =:id
-
-DQL;
-
-     $entityManager = $this->getEntityManager();
-     $query = $entityManager->createQuery($dql);
-     $query->setParameter(':motif', $motif);
-     $query->setParameter(':id', $id);
-
-     return $query->getResult();
-}
-
-    */
-
+    /**
+     * Fonction recherche sortie
+     * @param $nom
+     * @param $sites
+     * @param $organisateurId
+     * @param $idParticipant
+     * @param $notParticipantId
+     * @param $dateInf
+     * @param $dateSup
+     * @return int|mixed|string
+     */
     public function search($nom, $sites,$organisateurId,$idParticipant,$notParticipantId,$dateInf,$dateSup){
         $query = $this->createQueryBuilder('s');
         $query->leftJoin('s.organizateur', 'p');

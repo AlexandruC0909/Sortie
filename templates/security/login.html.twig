@@ -14,15 +14,15 @@
 
                     {% if app.user %}
                         <div class="mb-3">
-                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
                         </div>
                     {% endif %}
 
-                    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                    <label for="inputEmail">Email/Pseudo</label>
+                    <h1 class="h3 mb-3 font-weight-normal">Bienvenue sur Sortir.com, veuillez vous identifier</h1>
+                    <label for="inputEmail">Identifiant</label>
                     <input type="text" value="{{ last_username }}" name="id" id="inputId" class="form-control"
                            required autofocus>
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
                     <input type="checkbox" id="remember_me" name="_remember_me" checked/>
                     <label for="remember_me">Se souvenir de moi</label>
@@ -44,7 +44,7 @@
                     #}
 
                     <button class="btn btn-lg btn-primary" type="submit">
-                        Sign in
+                        Connexion
                     </button>
                 </form>
             </div>

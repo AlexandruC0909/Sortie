@@ -228,19 +228,28 @@
         /**
          * @Route("annuler/{id}", name="annuler", priority=1000)
          */
-       public function annuler(Request $request, EntityManagerInterface $entityManager, Sortie $sortie, EtatRepository $etatRepository)
+       public function annuler(
+           Request $request,
+           EntityManagerInterface $entityManager,
+           Sortie $sortie,
+           EtatRepository $etatRepository
+       )
        {
 
-           $participant = $this->getUser();
+
 
            $form = $this->createForm(RaisonAnnulationType::class, $sortie);
            $form->handleRequest($request);
 
            if($form->isSubmitted() && $form->isValid()){
+               //insert dans le setMotif de l'entity Sortie, le motif récuperer via le formulaire
                $sortie->setMotif($form['motif']->getData());
+               //modifie l'etat de la sortie en Annulée via l'etatRepository
                $sortie->setEtat($etatRepository->findOneBy(['id' => 6]));
 
+               //mise en bdd
                $entityManager->flush();
+               //message flash une fois l'annulation effective
                $this->addFlash('danger', 'La sortie à été annulée ! Le motif d\'annulation à été envoyé aux participants inscrits ! ');
 
                return $this->redirectToRoute('sortie_list');
@@ -248,7 +257,6 @@
            return $this->render('sortie/annulerSortie.html.twig', [
                'page_name' => 'Formulaire d\'annulation de la sortie',
                'sortie' => $sortie,
-               'participants' => $participant,
                'form' => $form->createView()
            ]);
        }

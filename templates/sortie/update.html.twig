@@ -41,6 +41,10 @@
                 {{ form_widget(updateSortieForm.infoSortie) }}
                 {{ form_errors(updateSortieForm.infoSortie) }}
 
+                {{ form_label(updateSortieForm.ville) }}
+                {{ form_widget(updateSortieForm.ville) }}
+                {{ form_errors(updateSortieForm.ville) }}
+
                 {{ form_label(updateSortieForm.lieu) }}
                 {{ form_widget(updateSortieForm.lieu) }}
                 {{ form_errors(updateSortieForm.lieu) }}
@@ -49,5 +53,29 @@
             </div>
         </div>
     </div>
+<script>
+    console.log("Hello World");
+    var $ville = $('#sortie_form_ville')
+    var $token = $('#sortie_form__token')
+    $ville.change(function (){
+        var $form = $(this).closest('form')
+        var data = {}
+        data[$token.attr('name')] =$token.val()
+        data[$ville.attr('name')] = $ville.val()
 
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+                // Replace current position field ...
+                $('#sortie_form_lieu').replaceWith(
+                    // ... with the returned one from the AJAX response.
+                    $(html).find('#sortie_form_lieu')
+                );
+                // Position field now displays the appropriate positions.
+            }
+        })
+    });
+</script>
 {% endblock %}

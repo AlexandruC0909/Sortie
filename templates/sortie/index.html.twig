@@ -8,13 +8,7 @@
             <div class="col">
                 <div class="sortie-list">
                     <p>Date du jour : {{ date('now') | date('d/m/Y') }}</p>
-                    {% if (sorties) %}
-                        {% for sortie in sorties %}
-                            {% for participant in sortie.listeParticipants %}
-                                {{ participant.prenom }}
-                            {% endfor %}
-                        {% endfor %}
-                    {% endif %}
+                    <p>Participant : {{ app.user.prenom }}</p>
                 </div>
             <div class="row">
                 <div class="col-md-5 mt-3">

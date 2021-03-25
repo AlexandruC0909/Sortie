@@ -1,17 +1,21 @@
 {% extends 'base.html.twig.' %}
 
 {% block body %}
-    <div class="jumbotron mt-2">
-        <h1 class="text-center">{{ page_name }}</h1>
-        <p>Nom de la sortie: {{ sortie.nom }}</p>
-        <p>Date de la sortie: {{ sortie.dateHeureDebut|date('d/m/Y') }} </p>
-        <p>Ville organisatrice : {{ sortie.organizateur.site.nom }}</p>
-        <p>Lieu : {{ sortie.lieu.nom }}, {{ sortie.lieu.rue }}, {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
-
-        {% if form is defined and form is not empty %}
-            {{ form(form) }}
-        {% endif %}
-        <a href="{{ path('sortie_list') }}" class="btn btn-success">Annuler</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="mt-2">
+                    <h1 class="text-center">{{ page_name }}</h1>
+                    <p>Nom de la sortie: {{ sortie.nom }}</p>
+                    <p>Date de la sortie: {{ sortie.dateHeureDebut|date('d/m/Y') }} </p>
+                    <p>Ville organisatrice : {{ sortie.organizateur.site.nom }}</p>
+                    <p>Lieu : {{ sortie.lieu.nom }}, {{ sortie.lieu.rue }}
+                        , {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
+                        {{ form(form) }}
+                    <a href="{{ path('sortie_list') }}" class="btn btn-success mt-2">Annuler</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

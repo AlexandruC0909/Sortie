@@ -22,7 +22,7 @@ class RaisonAnnulationType extends AbstractType
             ->add('submit', SubmitType::class,[
                 'label' =>'Enregistrer',
                 'attr' => [
-                    'class' => 'btn btn-danger w-30'
+                    'class' => 'btn btn-danger w-30 mt-2'
                 ]
             ])
         ;

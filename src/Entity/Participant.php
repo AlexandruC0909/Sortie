@@ -42,7 +42,7 @@ class Participant implements UserInterface, \Serializable
      * @Vich\UploadableField(mapping="user_image", fileNameProperty="filename")
      * @var File|null
      * @Assert\Image(
-     *     mimeTypes="image/jpeg, image/png"
+     *     mimeTypes="image/jpeg"
      * )
      */
     private $imageFile;

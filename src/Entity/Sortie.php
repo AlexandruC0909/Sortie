@@ -189,6 +189,7 @@ class Sortie
     {
         if (!$this->listeParticipants->contains($listeParticipant)) {
             $this->listeParticipants[] = $listeParticipant;
+
         }
 
         return $this;

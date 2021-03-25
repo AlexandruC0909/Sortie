@@ -160,6 +160,11 @@
 
             $user = $this->getUser();
             $user->removeInscritSortie($sortie);
+            if($sortie->getListeParticipants()->count() < $sortie->getNbInscriptionsMax()){
+                $etatRepository = $entityManager->getRepository(Etat::class);
+                $etat = $etatRepository->find(2);
+                $etat->addSortie($sortie);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -182,6 +187,11 @@
 
             $user = $this->getUser();
             $user->addInscritSortie($sortie);
+            if($sortie->getListeParticipants()->count() == $sortie->getNbInscriptionsMax()){
+                $etatRepository = $entityManager->getRepository(Etat::class);
+                $etat = $etatRepository->find(3);
+                $etat->addSortie($sortie);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 

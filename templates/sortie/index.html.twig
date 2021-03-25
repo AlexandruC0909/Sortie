@@ -68,7 +68,7 @@
                     <tbody>
                     {% if (sorties) %}
                         {% for sortie in sorties %}
-                            {% if sortie.listeParticipants|length<sortie.nbInscriptionsMax %}
+
                                 {% if date(sortie.dateHeureDebut) > date('-30days') %}
                                     {% if date(sortie.dateLimiteInscription) > date() %}
                                         <tr>
@@ -111,6 +111,16 @@
                                                     {% endif %}
                                                 {% endif %}
 
+                                                {% if (sortie.etat.id == 3 ) %}
+                                                    {% for participant in sortie.listeParticipants %}
+                                                        {% if(app.user.id == participant.id) %}
+                                                            <a href="{{ path('sortie_desister', {id: sortie.id}) }}">Se
+                                                                désister</a>
+
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+
                                                 {% if (sortie.etat.id != 1 ) %}
                                                     <a href="{{ path('sortie_detail', {id: sortie.id}) }}">Afficher</a>
                                                 {% endif %}
@@ -125,7 +135,7 @@
                                         </tr>
                                     {% endif %}
                                 {% endif %}
-                            {% endif %}
+
                         {% endfor %}
                     {% endif %}
                     </tbody>

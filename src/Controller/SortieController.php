@@ -135,7 +135,7 @@
                 $entityManager->persist($lieu);
                 $entityManager->flush();
 
-               
+
             }
             return $this->render('sortie/new.html.twig',
                 [

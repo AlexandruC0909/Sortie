@@ -44,7 +44,7 @@ class SortieFormType extends AbstractType
                     'attr' => ['min' => 20]
                 ]
             )
-            ->add('dateLimiteInscription',DateType::class,
+            ->add('dateLimiteInscription',DateTimeType::class,
                 [
                     'label'=>'Date limite d\'inscription :',
 

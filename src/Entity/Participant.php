@@ -33,57 +33,74 @@ class Participant implements UserInterface, \Serializable
 
 
     /**
+     * Permet de stocker le nom de l'image
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
     private $filename;
 
     /**
+     * Permet de stocker l'image téléchargée
      * @Vich\UploadableField(mapping="user_image", fileNameProperty="filename")
      * @var File|null
+     * type de fichiers telechargeables avec message
      * @Assert\Image(
-     *     mimeTypes="image/jpeg"
+     *     mimeTypes={"image/jpeg", "image/png"},
+     *     mimeTypesMessage="Seulement les fichiers JPG ou PNG"
      * )
      */
     private $imageFile;
 
     /**
+     * Email du Participant
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
+     * 3 roles sont présents
+     *  - ROLE_ADMIN qui commande l'intégralité du site
+     *  - ROLE_USER peut se connecter, organiser des sorties et participer aux sorties
+     *  - IS_AUTHENTICATED_ANONYMOUSLY cette personne ne peut pas se connecter sans y avoir été inscrit par un Admin
      * @ORM\Column(type="json")
      */
     private $roles = ['ROLE_USER'];
 
     /**
+     * Mot de passe du Participant qui sera haché dés qu'il sera enregistré
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * Nom du Participant
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * Prenom du Participant
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * N° de telephone du participant
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $telephone;
 
     /**
+     * Savoir si le Participant est administrateur
+     * en tant qu'administrateur il aura plus de droits
      * @ORM\Column(type="boolean")
      */
     private $administrator = 0;
 
     /**
+     * Nous avons la possibilité de bloquer un participant en tant qu'Admin en le mettant inactif
+     * il ne pourra alors plus se connecter
      * @ORM\Column(type="boolean")
      */
     private $actif = 1;
@@ -94,11 +111,13 @@ class Participant implements UserInterface, \Serializable
     private $pseudo;
 
     /**
+     * cet attribut est relié avec la table sortie sous le nom d'Organisateur
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organizateur", orphanRemoval=true)
      */
     private $organisateurSorties;
 
     /**
+     * cet attribut est relié à la table sortie en tant que participant et non organisateur
      * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="listeParticipants")
      */
     private $inscritSorties;
@@ -368,7 +387,10 @@ class Participant implements UserInterface, \Serializable
     }
 
     /**
+     * recupère l'image, si c'est une nouvelle instance de UploadFile alors
+     *      il met la date de changement de l'image en même temps qu'il enregistre l'image
      * @param File|UploadedFile|null $imageFile
+     * @return Participant
      */
     public function setImageFile(?File $imageFile = null): Participant
     {
@@ -390,7 +412,8 @@ class Participant implements UserInterface, \Serializable
         $this->updated_at = $updated_at;
         return $this;
     }
-
+/*---------------  Methode permettant le chiffrement des informations
+                    Héritée de la classe Mère \Serializable --------*/
     /**
      * {@inheritdoc}
      */

@@ -1,10 +1,10 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        user_image:
-            uri_prefix: /resources/images/users
-            upload_destination: '%kernel.project_dir%/public/resources/images/users'
-            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        user_image: # nom de la route utilisée 
+            uri_prefix: /resources/images/users  # L'url pour enregistrer les images
+            upload_destination: '%kernel.project_dir%/public/resources/images/users' # le lien permettant a Vich d'enregistrer les images
+            namer: Vich\UploaderBundle\Naming\UniqidNamer # Donne un ID unique à une image
 
             inject_on_load: false
             delete_on_update: true

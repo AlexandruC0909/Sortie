@@ -46,7 +46,7 @@
                                         <td>{{ sortie.organizateur.nom }}</td>
                                         <td>{{ sortie.organizateur.site.nom }}</td>
                                         <td>
-                                            {% if (sortie.etat.id == 2) %}
+                                            {% if (sortie.etat.id == 2 or sortie.etat.id ==3 ) %}
                                                 <a href="{{ path('sortie_annuler', {id: sortie.id}) }}">Annuler</a>
                                             {% endif %}
                                             {% if (sortie.etat.id != 1 ) %}

@@ -104,24 +104,32 @@
             Request $request
         ): Response
         {
+            //Recuperation du premier etat, 'Crée'
             $etatRepository = $entityManager->getRepository(Etat::class);
             $etat = $etatRepository->find(1);
+
+            //entite pour ajouter une sortie/lien
             $sortie = new Sortie();
             $lieu = new Lieu();
 
+            //recuperation Utilisateur conecté
             $user = $this->getUser();
 
+            //creation formulaire sortie
             $sortieForm = $this->createForm(SortieFormType::class, $sortie);
             $sortieForm->handleRequest($request);
-
+            //creation formulaire lieu
             $lieuForm = $this->createForm(LieuType::class,$lieu);
             $lieuForm->handleRequest($request);
 
 
 
             if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+                //si le formulaire est valide, j'ajoute le organisateur et l'etat à l'entité
                 $user->addOrganisateurSortie($sortie);
                 $etat->addSortie($sortie);
+                //ajout de l'entité à la base de données
                 $entityManager->persist($sortie);
                 $entityManager->flush();
 
@@ -207,8 +215,10 @@
             Request $request
         )
         {
+            //Recuperation du deuxieme etat, 'Ouvert'
             $etat = $entityManager->getRepository(Etat::class)->find(2);
             $sortieRepository = $entityManager->getRepository(Sortie::class);
+            //Changement de l'etat
             $sortie = $sortieRepository->changerStatutSortie($etat, $id);
 
             if (!$sortie) {

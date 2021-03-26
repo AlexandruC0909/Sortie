@@ -111,9 +111,6 @@
 
             $user = $this->getUser();
 
-
-
-
             $sortieForm = $this->createForm(SortieFormType::class, $sortie);
             $sortieForm->handleRequest($request);
 
